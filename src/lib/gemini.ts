@@ -22,58 +22,81 @@ const STORAGE_KEY = "greenfair_gemini_api_key";
 
 function buildPrompt(country: Country, latest: YearPoint, forecast2050: ForecastPoint, weakest: string) {
   return `
-Tu es Gemini, expert en stratégie de développement durable, économie publique et analyse prédictive.
+Tu es Gemini, expert en strategie de developpement durable, economie publique et analyse predictive.
 
-Analyse le pays suivant avec des recommandations spécifiques, concrètes et non génériques.
+Analyse le pays suivant avec des recommandations specifiques, concretes et non generiques.
 
 Pays: ${country.name}
-Région: ${country.region}
-Population estimée: ${country.population} millions
+Region: ${country.region}
+Population estimee: ${country.population} millions
 Score GreenFair 2025: ${latest.greenfair}/100
 Projection centrale 2050: ${forecast2050.base}/100
-Scénario optimiste 2050: ${forecast2050.optimistic}/100
-Scénario pessimiste 2050: ${forecast2050.pessimistic}/100
+Scenario optimiste 2050: ${forecast2050.optimistic}/100
+Scenario pessimiste 2050: ${forecast2050.pessimistic}/100
 Pilier environnement: ${latest.environment}/100
 Pilier social: ${latest.social}/100
-Pilier économie: ${latest.economy}/100
-CO2 estimé: ${latest.co2} t/habitant
-Énergies renouvelables estimées: ${latest.renewable}%
-Croissance estimée: ${latest.growth}%
+Pilier economie: ${latest.economy}/100
+CO2 estime: ${latest.co2} t/habitant
+Energies renouvelables estimees: ${latest.renewable}%
+Croissance estimee: ${latest.growth}%
 Pilier le plus faible: ${weakest}
 
-Réponds uniquement avec un tableau JSON valide.
-N'ajoute aucune phrase avant ou après le JSON.
+Reponds uniquement avec un tableau JSON valide.
+N'ajoute aucune phrase avant ou apres le JSON.
 N'utilise pas de bloc markdown.
-Chaque valeur "tone" doit être exactement "green", "blue" ou "amber".
+Chaque valeur "tone" doit etre exactement "green", "blue" ou "amber".
 Format obligatoire:
 [
-  {"title":"Diagnostic pays","text":"2 phrases spécifiques au pays, avec les chiffres clés.","tone":"green"},
-  {"title":"Priorités 2026-2030","text":"3 actions concrètes adaptées au pays.","tone":"blue"},
-  {"title":"Risques et KPI à suivre","text":"Risques principaux + indicateurs mesurables à suivre.","tone":"amber"}
+  {"title":"Diagnostic pays","text":"2 phrases specifiques au pays, avec les chiffres cles.","tone":"green"},
+  {"title":"Priorites 2026-2030","text":"3 actions concretes adaptees au pays.","tone":"blue"},
+  {"title":"Risques et KPI a suivre","text":"Risques principaux + indicateurs mesurables a suivre.","tone":"amber"}
 ]
 `;
 }
 
+function cleanGeminiText(text: string) {
+  return text.replace(/```json/gi, "").replace(/```/g, "").trim();
+}
+
 function extractJson(text: string) {
-  const cleaned = text.replace(/```json/gi, "").replace(/```/g, "").trim();
+  const cleaned = cleanGeminiText(text);
   const start = cleaned.indexOf("[");
   const end = cleaned.lastIndexOf("]");
   if (start === -1 || end === -1) {
-    throw new Error("Réponse Gemini non JSON.");
+    throw new Error("Reponse Gemini non JSON.");
   }
   return cleaned.slice(start, end + 1);
 }
 
 function textToRecommendations(text: string): GeminiRecommendation[] {
-  const cleaned = text.replace(/```json/gi, "").replace(/```/g, "").trim();
+  const cleaned = cleanGeminiText(text);
+  const defaults = ["Diagnostic pays", "Priorites 2026-2030", "Risques et KPI a suivre"];
+  const tones: GeminiRecommendation["tone"][] = ["green", "blue", "amber"];
+  const jsonLikeMatches = Array.from(
+    cleaned.matchAll(
+      /"title"\s*:\s*"([^"]+)"[\s\S]*?"text"\s*:\s*"([^"]+)"(?:[\s\S]*?"tone"\s*:\s*"(green|blue|amber)")?/gi
+    )
+  );
+
+  if (jsonLikeMatches.length > 0) {
+    return jsonLikeMatches.slice(0, 3).map((match, index) => ({
+      title: match[1].trim(),
+      text: match[2].trim(),
+      tone: (match[3] as GeminiRecommendation["tone"]) || tones[index] || "green"
+    }));
+  }
+
   const parts = cleaned
     .split(/\n(?=\d+\.|[-*]\s|Diagnostic|Priorit|Risque)/i)
-    .map((part) => part.replace(/^[-*\d.\s]+/, "").trim())
+    .map((part) =>
+      part
+        .replace(/^[-*\d.\s]+/, "")
+        .replace(/^\[?\s*\{?\s*"?(title|text|tone)"?\s*:?\s*/i, "")
+        .replace(/[{}[\]"]/g, "")
+        .trim()
+    )
     .filter(Boolean);
-
-  const defaults = ["Diagnostic pays", "Priorités 2026-2030", "Risques et KPI à suivre"];
-  const tones: GeminiRecommendation["tone"][] = ["green", "blue", "amber"];
-  const selected = parts.length >= 3 ? parts.slice(0, 3) : [cleaned];
+  const selected = parts.length >= 3 ? parts.slice(0, 3) : [cleaned.replace(/[{}[\]"]/g, "").trim()];
 
   return selected.map((part, index) => {
     const [rawTitle, ...rest] = part.split(/:\s+/);
@@ -119,7 +142,7 @@ export async function generateGeminiRecommendations(
   const apiKey = getGeminiKey();
 
   if (!apiKey) {
-    throw new Error("Clé Gemini absente. Ajoutez VITE_GEMINI_API_KEY dans les secrets GitHub Pages.");
+    throw new Error("Cle Gemini absente. Collez votre cle dans le champ Gemini.");
   }
 
   const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`, {
@@ -136,8 +159,8 @@ export async function generateGeminiRecommendations(
         }
       ],
       generationConfig: {
-        temperature: 0.45,
-        maxOutputTokens: 900,
+        temperature: 0.25,
+        maxOutputTokens: 1600,
         responseMimeType: "application/json"
       }
     })
@@ -158,7 +181,7 @@ export async function generateGeminiRecommendations(
   }
 
   return parsed.map((item, index) => ({
-    title: item.title || ["Diagnostic pays", "Priorités 2026-2030", "Risques et KPI à suivre"][index] || "Insight IA",
+    title: item.title || ["Diagnostic pays", "Priorites 2026-2030", "Risques et KPI a suivre"][index] || "Insight IA",
     text: item.text || "",
     tone: item.tone || (["green", "blue", "amber"][index] as GeminiRecommendation["tone"]) || "green"
   }));
