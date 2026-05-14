@@ -41,7 +41,11 @@ CO2 estimé: ${latest.co2} t/habitant
 Croissance estimée: ${latest.growth}%
 Pilier le plus faible: ${weakest}
 
-Réponds uniquement en JSON valide, sans markdown, avec exactement ce format:
+Réponds uniquement avec un tableau JSON valide.
+N'ajoute aucune phrase avant ou après le JSON.
+N'utilise pas de bloc markdown.
+Chaque valeur "tone" doit être exactement "green", "blue" ou "amber".
+Format obligatoire:
 [
   {"title":"Diagnostic pays","text":"2 phrases spécifiques au pays, avec les chiffres clés.","tone":"green"},
   {"title":"Priorités 2026-2030","text":"3 actions concrètes adaptées au pays.","tone":"blue"},
@@ -51,12 +55,35 @@ Réponds uniquement en JSON valide, sans markdown, avec exactement ce format:
 }
 
 function extractJson(text: string) {
-  const start = text.indexOf("[");
-  const end = text.lastIndexOf("]");
+  const cleaned = text.replace(/```json/gi, "").replace(/```/g, "").trim();
+  const start = cleaned.indexOf("[");
+  const end = cleaned.lastIndexOf("]");
   if (start === -1 || end === -1) {
     throw new Error("Réponse Gemini non JSON.");
   }
-  return text.slice(start, end + 1);
+  return cleaned.slice(start, end + 1);
+}
+
+function textToRecommendations(text: string): GeminiRecommendation[] {
+  const cleaned = text.replace(/```json/gi, "").replace(/```/g, "").trim();
+  const parts = cleaned
+    .split(/\n(?=\d+\.|[-*]\s|Diagnostic|Priorit|Risque)/i)
+    .map((part) => part.replace(/^[-*\d.\s]+/, "").trim())
+    .filter(Boolean);
+
+  const defaults = ["Diagnostic pays", "Priorités 2026-2030", "Risques et KPI à suivre"];
+  const tones: GeminiRecommendation["tone"][] = ["green", "blue", "amber"];
+  const selected = parts.length >= 3 ? parts.slice(0, 3) : [cleaned];
+
+  return selected.map((part, index) => {
+    const [rawTitle, ...rest] = part.split(/:\s+/);
+    const hasTitle = rest.length > 0 && rawTitle.length < 60;
+    return {
+      title: hasTitle ? rawTitle : defaults[index] || "Insight Gemini",
+      text: hasTitle ? rest.join(": ") : part,
+      tone: tones[index] || "green"
+    };
+  });
 }
 
 export function hasGeminiKey() {
@@ -122,7 +149,13 @@ export async function generateGeminiRecommendations(
 
   const data = (await response.json()) as GeminiResponse;
   const text = data.candidates?.[0]?.content?.parts?.map((part) => part.text ?? "").join("") ?? "";
-  const parsed = JSON.parse(extractJson(text)) as GeminiRecommendation[];
+  let parsed: GeminiRecommendation[];
+
+  try {
+    parsed = JSON.parse(extractJson(text)) as GeminiRecommendation[];
+  } catch {
+    parsed = textToRecommendations(text);
+  }
 
   return parsed.map((item, index) => ({
     title: item.title || ["Diagnostic pays", "Priorités 2026-2030", "Risques et KPI à suivre"][index] || "Insight IA",
