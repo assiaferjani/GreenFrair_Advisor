@@ -1,0 +1,507 @@
+import { useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import {
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  ComposedChart,
+  Legend,
+  Line,
+  Pie,
+  PieChart,
+  PolarAngleAxis,
+  PolarGrid,
+  Radar,
+  RadarChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from "recharts";
+import {
+  Bell,
+  Bot,
+  Download,
+  FileSpreadsheet,
+  Globe2,
+  Heart,
+  LineChart,
+  Moon,
+  Search,
+  Share2,
+  Sparkles,
+  Sun,
+  Target,
+  TrendingUp,
+  Users
+} from "lucide-react";
+import { buildForecast, buildHistory, countries, Country, countryProfile, leaderboard } from "./data/greenfair";
+import { exportDashboardPdf, exportRowsCsv, exportRowsXlsx } from "./lib/exports";
+
+const formatScore = (score: number) => `${score.toFixed(1)}/100`;
+
+function Stat({ label, value, tone }: { label: string; value: string; tone?: string }) {
+  return (
+    <div className="metric">
+      <span>{label}</span>
+      <strong className={tone}>{value}</strong>
+    </div>
+  );
+}
+
+function CountryMap({ selected, onSelect }: { selected: Country; onSelect: (country: Country) => void }) {
+  const x = (lon: number) => ((lon + 180) / 360) * 100;
+  const y = (lat: number) => ((85 - lat) / 170) * 100;
+  return (
+    <div className="map-panel">
+      <div className="map-grid" />
+      {countries.map((country) => {
+        const score = countryProfile(country).latest.greenfair;
+        return (
+          <button
+            className={`map-point ${selected.code === country.code ? "active" : ""}`}
+            key={country.code}
+            style={{ left: `${x(country.lon)}%`, top: `${y(country.lat)}%` }}
+            onClick={() => onSelect(country)}
+            title={`${country.name} - ${formatScore(score)}`}
+          >
+            <span>{country.flag}</span>
+          </button>
+        );
+      })}
+      <div className="map-caption">Carte stratégique des pays analysés</div>
+    </div>
+  );
+}
+
+function CountrySelector({
+  selected,
+  onSelect,
+  favorites,
+  onFavorite
+}: {
+  selected: Country;
+  onSelect: (country: Country) => void;
+  favorites: string[];
+  onFavorite: (code: string) => void;
+}) {
+  const [query, setQuery] = useState("");
+  const [region, setRegion] = useState("Tous");
+  const regions = ["Tous", ...Array.from(new Set(countries.map((country) => country.continent)))];
+  const visibleCountries = countries.filter((country) => {
+    const matchesQuery = `${country.name} ${country.region} ${country.code}`.toLowerCase().includes(query.toLowerCase());
+    const matchesRegion = region === "Tous" || country.continent === region;
+    return matchesQuery && matchesRegion;
+  });
+
+  return (
+    <aside className="country-rail">
+      <div className="rail-head">
+        <div>
+          <span className="eyebrow">Portfolio pays</span>
+          <h2>Explorer</h2>
+        </div>
+        <Globe2 size={22} />
+      </div>
+      <label className="search-box">
+        <Search size={16} />
+        <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Rechercher un pays" />
+      </label>
+      <div className="segmented">
+        {regions.map((item) => (
+          <button className={region === item ? "selected" : ""} key={item} onClick={() => setRegion(item)}>
+            {item}
+          </button>
+        ))}
+      </div>
+      <div className="country-list">
+        {visibleCountries.map((country) => {
+          const profile = countryProfile(country);
+          return (
+            <button
+              className={`country-card ${selected.code === country.code ? "active" : ""}`}
+              key={country.code}
+              onClick={() => onSelect(country)}
+            >
+              <span className="flag">{country.flag}</span>
+              <span>
+                <strong>{country.name}</strong>
+                <small>{country.region}</small>
+              </span>
+              <span className="mini-score">{Math.round(profile.latest.greenfair)}</span>
+              <Heart
+                className={favorites.includes(country.code) ? "favorite active" : "favorite"}
+                size={16}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onFavorite(country.code);
+                }}
+              />
+            </button>
+          );
+        })}
+      </div>
+    </aside>
+  );
+}
+
+function AiRecommendations({ country, weakest, forecast2050 }: { country: Country; weakest: string; forecast2050: number }) {
+  const recommendations = [
+    {
+      title: "Diagnostic stratégique",
+      text: `${country.name} doit renforcer le pilier ${weakest.toLowerCase()} pour réduire l'écart avec les leaders GreenFair.`,
+      tone: "green"
+    },
+    {
+      title: "Projection 2050",
+      text: `Le scénario central atteint ${forecast2050.toFixed(1)}/100 avec une trajectoire sensible aux politiques climatiques et sociales.`,
+      tone: "blue"
+    },
+    {
+      title: "Priorités IA",
+      text: "Accélérer les renouvelables, protéger les budgets santé-éducation et piloter les investissements par KPI trimestriels.",
+      tone: "amber"
+    }
+  ];
+  return (
+    <section className="panel ai-panel">
+      <div className="panel-title">
+        <Bot size={20} />
+        <div>
+          <span className="eyebrow">Gemini ready</span>
+          <h3>AI Recommendations</h3>
+        </div>
+      </div>
+      <div className="ai-thread">
+        {recommendations.map((item, index) => (
+          <motion.article
+            className={`ai-card ${item.tone}`}
+            key={item.title}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.08 }}
+          >
+            <Sparkles size={16} />
+            <div>
+              <strong>{item.title}</strong>
+              <p>{item.text}</p>
+            </div>
+          </motion.article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Dashboard({
+  selected,
+  compare,
+  onCompareChange
+}: {
+  selected: Country;
+  compare: Country;
+  onCompareChange: (country: Country) => void;
+}) {
+  const profile = useMemo(() => countryProfile(selected), [selected]);
+  const compareProfile = useMemo(() => countryProfile(compare), [compare]);
+  const comparisonRows = useMemo(
+    () =>
+      countries.map((country) => {
+        const profile = countryProfile(country);
+        return {
+          name: country.name,
+          score: profile.latest.greenfair,
+          environment: profile.latest.environment,
+          social: profile.latest.social,
+          economy: profile.latest.economy
+        };
+      }),
+    []
+  );
+  const forecastRows = profile.forecast.map((row) => ({ year: row.year, central: row.base, optimistic: row.optimistic, pessimistic: row.pessimistic }));
+  const heatmapYears = profile.history.slice(-8);
+
+  const exportRows = [
+    ...profile.history.map((row) => ({ type: "historical", country: selected.name, ...row })),
+    ...profile.forecast.map((row) => ({ type: "forecast", country: selected.name, ...row }))
+  ];
+
+  return (
+    <main className="dashboard" id="greenfair-dashboard">
+      <section className="country-hero">
+        <div>
+          <span className="eyebrow">Dashboard prédictif</span>
+          <h1>
+            {selected.flag} {selected.name}
+          </h1>
+          <p>
+            Analyse GreenFair par piliers, scoring durable, projection IA jusqu'en 2050 et recommandations stratégiques
+            prêtes à être branchées à Gemini.
+          </p>
+        </div>
+        <div className="hero-actions">
+          <button onClick={() => exportDashboardPdf("greenfair-dashboard", selected.name)}>
+            <Download size={17} /> PDF
+          </button>
+          <button onClick={() => exportRowsXlsx(exportRows, selected.name)}>
+            <FileSpreadsheet size={17} /> Excel
+          </button>
+          <button onClick={() => exportRowsCsv(exportRows, selected.name)}>
+            <Share2 size={17} /> CSV
+          </button>
+        </div>
+      </section>
+
+      <section className="metrics-row">
+        <Stat label="Score GreenFair 2025" value={formatScore(profile.latest.greenfair)} tone="green-text" />
+        <Stat label="Projection 2050" value={formatScore(profile.forecast2050.base)} tone="blue-text" />
+        <Stat label="Scénario optimiste" value={formatScore(profile.forecast2050.optimistic)} />
+        <Stat label="Pilier prioritaire" value={profile.weakest.name} tone="amber-text" />
+      </section>
+
+      <section className="chart-grid">
+        <div className="panel wide">
+          <div className="panel-title">
+            <LineChart size={20} />
+            <h3>Évolution historique et trajectoire 2050</h3>
+          </div>
+          <ResponsiveContainer width="100%" height={330}>
+            <ComposedChart data={[...profile.history, ...forecastRows]}>
+              <defs>
+                <linearGradient id="scoreFill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#20c997" stopOpacity={0.35} />
+                  <stop offset="95%" stopColor="#20c997" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,.08)" />
+              <XAxis dataKey="year" stroke="var(--muted)" />
+              <YAxis domain={[0, 100]} stroke="var(--muted)" />
+              <Tooltip contentStyle={{ background: "#0e1918", border: "1px solid rgba(255,255,255,.12)", borderRadius: 12 }} />
+              <Legend />
+              <Area type="monotone" dataKey="greenfair" name="Historique" stroke="#20c997" fill="url(#scoreFill)" strokeWidth={3} />
+              <Line type="monotone" dataKey="central" name="Prévision centrale" stroke="#60a5fa" strokeWidth={3} dot={false} />
+              <Line type="monotone" dataKey="optimistic" name="Optimiste" stroke="#a3e635" strokeDasharray="6 6" dot={false} />
+              <Line type="monotone" dataKey="pessimistic" name="Pessimiste" stroke="#f97316" strokeDasharray="6 6" dot={false} />
+            </ComposedChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="panel">
+          <div className="panel-title">
+            <Target size={20} />
+            <h3>Radar piliers</h3>
+          </div>
+          <ResponsiveContainer width="100%" height={300}>
+            <RadarChart data={profile.pillars}>
+              <PolarGrid stroke="rgba(255,255,255,.14)" />
+              <PolarAngleAxis dataKey="name" stroke="var(--muted)" />
+              <Radar dataKey="value" stroke="#20c997" fill="#20c997" fillOpacity={0.38} />
+              <Tooltip />
+            </RadarChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="panel">
+          <div className="panel-title">
+            <TrendingUp size={20} />
+            <h3>Classement pays</h3>
+          </div>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={comparisonRows.sort((a, b) => a.score - b.score)}>
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,.08)" />
+              <XAxis dataKey="score" type="number" domain={[0, 100]} hide />
+              <YAxis dataKey="name" type="category" width={82} stroke="var(--muted)" />
+              <Tooltip />
+              <Bar dataKey="score" radius={[0, 8, 8, 0]}>
+                {comparisonRows.map((row) => (
+                  <Cell key={row.name} fill={row.name === selected.name ? "#20c997" : "#334155"} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="panel">
+          <div className="panel-title">
+            <Users size={20} />
+            <h3>Mix des piliers</h3>
+          </div>
+          <ResponsiveContainer width="100%" height={280}>
+            <PieChart>
+              <Pie data={profile.pillars} dataKey="value" nameKey="name" innerRadius={58} outerRadius={98} paddingAngle={4}>
+                {profile.pillars.map((entry) => (
+                  <Cell fill={entry.fill} key={entry.name} />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="panel">
+          <div className="panel-title">
+            <Sparkles size={20} />
+            <h3>Heatmap récente</h3>
+          </div>
+          <div className="heatmap">
+            {heatmapYears.map((row) => (
+              <div className="heat-row" key={row.year}>
+                <span>{row.year}</span>
+                {["environment", "social", "economy", "greenfair"].map((key) => {
+                  const value = Number(row[key as keyof typeof row]);
+                  return (
+                    <div className="heat-cell" key={key} style={{ opacity: 0.25 + value / 135 }}>
+                      {Math.round(value)}
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+            <div className="heat-labels">
+              <span />
+              <span>Env</span>
+              <span>Soc</span>
+              <span>Eco</span>
+              <span>GF</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="panel wide compare-panel">
+          <div className="panel-title split">
+            <div>
+              <span className="eyebrow">Benchmark</span>
+              <h3>Comparaison entre pays</h3>
+            </div>
+            <select value={compare.code} onChange={(event) => onCompareChange(countries.find((item) => item.code === event.target.value) ?? countries[0])}>
+              {countries.map((country) => (
+                <option key={country.code} value={country.code}>
+                  {country.flag} {country.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <ResponsiveContainer width="100%" height={300}>
+            <AreaChart
+              data={profile.history.map((row, index) => ({
+                year: row.year,
+                [selected.name]: row.greenfair,
+                [compare.name]: compareProfile.history[index]?.greenfair
+              }))}
+            >
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,.08)" />
+              <XAxis dataKey="year" stroke="var(--muted)" />
+              <YAxis domain={[0, 100]} stroke="var(--muted)" />
+              <Tooltip />
+              <Area dataKey={selected.name} stroke="#20c997" fill="#20c99733" strokeWidth={3} />
+              <Area dataKey={compare.name} stroke="#60a5fa" fill="#60a5fa22" strokeWidth={3} />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+
+        <AiRecommendations country={selected} weakest={profile.weakest.name} forecast2050={profile.forecast2050.base} />
+      </section>
+    </main>
+  );
+}
+
+export default function App() {
+  const [selected, setSelected] = useState(countries[0]);
+  const [compare, setCompare] = useState(countries[8]);
+  const [dark, setDark] = useState(true);
+  const [favorites, setFavorites] = useState<string[]>(["TUN"]);
+  const profile = countryProfile(selected);
+
+  const toggleFavorite = (code: string) => {
+    setFavorites((current) => (current.includes(code) ? current.filter((item) => item !== code) : [...current, code]));
+  };
+
+  return (
+    <div className={dark ? "app dark" : "app light"}>
+      <header className="topbar">
+        <a className="brand" href="#home">
+          <span className="brand-mark">G</span>
+          <span>GreenFair Advisor</span>
+        </a>
+        <nav>
+          <a href="#dashboard">Dashboard</a>
+          <a href="#countries">Pays</a>
+          <a href="#insights">Insights</a>
+        </nav>
+        <div className="top-actions">
+          <button title="Notifications">
+            <Bell size={18} />
+          </button>
+          <button title="Mode clair/sombre" onClick={() => setDark((value) => !value)}>
+            {dark ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+        </div>
+      </header>
+
+      <section className="landing" id="home">
+        <div className="landing-copy">
+          <motion.span className="eyebrow" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
+            AI country intelligence platform
+          </motion.span>
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
+            Prédire les trajectoires durables des pays jusqu'en 2050.
+          </motion.h1>
+          <p>
+            Une plateforme SaaS premium inspirée de votre notebook Colab: données World Bank, scoring GreenFair,
+            forecasting, clustering, comparaison et recommandations IA.
+          </p>
+          <div className="cta-row">
+            <a href="#dashboard" className="primary-cta">
+              Explorer le dashboard
+            </a>
+            <a href="#insights" className="secondary-cta">
+              Voir les insights
+            </a>
+          </div>
+          <div className="global-stats">
+            <Stat label="Pays analysés" value={`${countries.length}`} />
+            <Stat label="Score moyen" value={formatScore(leaderboard.reduce((sum, row) => sum + row.score, 0) / leaderboard.length)} />
+            <Stat label="Horizon" value="2050" />
+          </div>
+        </div>
+        <motion.div className="landing-visual" initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }}>
+          <CountryMap selected={selected} onSelect={setSelected} />
+          <div className="floating-card">
+            <span>{selected.flag} {selected.name}</span>
+            <strong>{formatScore(profile.latest.greenfair)}</strong>
+          </div>
+        </motion.div>
+      </section>
+
+      <section className="workspace" id="dashboard">
+        <CountrySelector selected={selected} onSelect={setSelected} favorites={favorites} onFavorite={toggleFavorite} />
+        <Dashboard selected={selected} compare={compare} onCompareChange={setCompare} />
+      </section>
+
+      <section className="insights-band" id="insights">
+        <div>
+          <span className="eyebrow">Investor-ready narrative</span>
+          <h2>Du notebook ML à un produit SaaS scalable</h2>
+          <p>
+            Le backend expose les endpoints pays, prévisions et recommandations. Le frontend fonctionne déjà avec des
+            données de démonstration réalistes et peut basculer vers l'API FastAPI dès que les fichiers World Bank sont
+            branchés.
+          </p>
+        </div>
+        <div className="leader-strip">
+          {leaderboard.slice(0, 4).map(({ country, score }) => (
+            <article key={country.code}>
+              <span>{country.flag}</span>
+              <strong>{country.name}</strong>
+              <small>{formatScore(score)}</small>
+            </article>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
