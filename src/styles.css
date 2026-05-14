@@ -517,6 +517,12 @@ a {
   margin-bottom: 16px;
 }
 
+.panel-title-inline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .panel-title.split {
   justify-content: space-between;
 }
@@ -566,6 +572,31 @@ a {
 .ai-thread {
   display: grid;
   gap: 10px;
+}
+
+.ai-refresh {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: #06110e;
+  background: var(--green);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.ai-refresh:disabled {
+  cursor: progress;
+  opacity: 0.72;
+}
+
+.ai-error {
+  margin: -6px 0 12px;
+  color: var(--amber);
+  font-size: 0.9rem;
 }
 
 .ai-card {

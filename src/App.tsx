@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Area,
@@ -40,6 +40,7 @@ import {
 } from "lucide-react";
 import { buildForecast, buildHistory, countries, Country, countryProfile, leaderboard } from "./data/greenfair";
 import { exportDashboardPdf, exportRowsCsv, exportRowsXlsx } from "./lib/exports";
+import { generateGeminiRecommendations, GeminiRecommendation, hasGeminiKey } from "./lib/gemini";
 
 const formatScore = (score: number) => `${score.toFixed(1)}/100`;
 
@@ -149,32 +150,73 @@ function CountrySelector({
 }
 
 function AiRecommendations({ country, weakest, forecast2050 }: { country: Country; weakest: string; forecast2050: number }) {
-  const recommendations = [
+  const profile = useMemo(() => countryProfile(country), [country]);
+  const fallbackRecommendations: GeminiRecommendation[] = [
     {
       title: "Diagnostic stratégique",
-      text: `${country.name} doit renforcer le pilier ${weakest.toLowerCase()} pour réduire l'écart avec les leaders GreenFair.`,
+      text: `${country.name} doit renforcer le pilier ${weakest.toLowerCase()} pour réduire l'écart avec les leaders GreenFair. Score actuel: ${profile.latest.greenfair.toFixed(1)}/100, projection 2050: ${forecast2050.toFixed(1)}/100.`,
       tone: "green"
     },
     {
       title: "Projection 2050",
-      text: `Le scénario central atteint ${forecast2050.toFixed(1)}/100 avec une trajectoire sensible aux politiques climatiques et sociales.`,
+      text: `Le scénario central atteint ${forecast2050.toFixed(1)}/100. Le levier prioritaire est ${weakest.toLowerCase()}, avec un suivi annuel des écarts optimiste/pessimiste.`,
       tone: "blue"
     },
     {
       title: "Priorités IA",
-      text: "Accélérer les renouvelables, protéger les budgets santé-éducation et piloter les investissements par KPI trimestriels.",
+      text: "Ajoutez VITE_GEMINI_API_KEY pour générer une recommandation Gemini vraiment personnalisée à chaque pays.",
       tone: "amber"
     }
   ];
+  const [recommendations, setRecommendations] = useState<GeminiRecommendation[]>(fallbackRecommendations);
+  const [isLoading, setIsLoading] = useState(false);
+  const [provider, setProvider] = useState(hasGeminiKey() ? "Gemini 2.5 Flash" : "Fallback local");
+  const [error, setError] = useState("");
+
+  const runGemini = async () => {
+    if (!hasGeminiKey()) {
+      setProvider("Fallback local");
+      setRecommendations(fallbackRecommendations);
+      setError("Clé Gemini non configurée dans GitHub Pages.");
+      return;
+    }
+
+    setIsLoading(true);
+    setError("");
+    try {
+      const generated = await generateGeminiRecommendations(country, profile.latest, profile.forecast2050, weakest);
+      setRecommendations(generated);
+      setProvider("Gemini 2.5 Flash");
+    } catch (requestError) {
+      setRecommendations(fallbackRecommendations);
+      setProvider("Fallback local");
+      setError(requestError instanceof Error ? requestError.message : "Gemini n'a pas répondu.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    setRecommendations(fallbackRecommendations);
+    void runGemini();
+  }, [country.code]);
+
   return (
     <section className="panel ai-panel">
-      <div className="panel-title">
-        <Bot size={20} />
-        <div>
-          <span className="eyebrow">Gemini ready</span>
-          <h3>AI Recommendations</h3>
+      <div className="panel-title split">
+        <div className="panel-title-inline">
+          <Bot size={20} />
+          <div>
+            <span className="eyebrow">{provider}</span>
+            <h3>AI Recommendations</h3>
+          </div>
         </div>
+        <button className="ai-refresh" onClick={runGemini} disabled={isLoading}>
+          <Sparkles size={16} />
+          {isLoading ? "Analyse..." : "Générer"}
+        </button>
       </div>
+      {error && <p className="ai-error">{error}</p>}
       <div className="ai-thread">
         {recommendations.map((item, index) => (
           <motion.article
