@@ -180,7 +180,7 @@ function AiRecommendations({ country, weakest, forecast2050 }: { country: Countr
           <motion.article
             className={`ai-card ${item.tone}`}
             key={item.title}
-            initial={{ opacity: 0, y: 14 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.08 }}
           >
@@ -444,10 +444,10 @@ export default function App() {
 
       <section className="landing" id="home">
         <div className="landing-copy">
-          <motion.span className="eyebrow" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
+          <motion.span className="eyebrow" initial={false} animate={{ opacity: 1, y: 0 }}>
             AI country intelligence platform
           </motion.span>
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
+          <motion.h1 initial={false} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
             Prédire les trajectoires durables des pays jusqu'en 2050.
           </motion.h1>
           <p>
@@ -468,7 +468,7 @@ export default function App() {
             <Stat label="Horizon" value="2050" />
           </div>
         </div>
-        <motion.div className="landing-visual" initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }}>
+        <motion.div className="landing-visual" initial={false} animate={{ opacity: 1, scale: 1 }}>
           <CountryMap selected={selected} onSelect={setSelected} />
           <div className="floating-card">
             <span>{selected.flag} {selected.name}</span>
