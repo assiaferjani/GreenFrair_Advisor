@@ -40,7 +40,7 @@ import {
 } from "lucide-react";
 import { buildForecast, buildHistory, countries, Country, countryProfile, leaderboard } from "./data/greenfair";
 import { exportDashboardPdf, exportRowsCsv, exportRowsXlsx } from "./lib/exports";
-import { generateGeminiRecommendations, GeminiRecommendation, hasGeminiKey } from "./lib/gemini";
+import { generateGeminiRecommendations, GeminiRecommendation, getGeminiKey, hasGeminiKey, saveGeminiKey } from "./lib/gemini";
 
 const formatScore = (score: number) => `${score.toFixed(1)}/100`;
 
@@ -172,12 +172,13 @@ function AiRecommendations({ country, weakest, forecast2050 }: { country: Countr
   const [isLoading, setIsLoading] = useState(false);
   const [provider, setProvider] = useState(hasGeminiKey() ? "Gemini 2.5 Flash" : "Fallback local");
   const [error, setError] = useState("");
+  const [apiKeyDraft, setApiKeyDraft] = useState(getGeminiKey());
 
   const runGemini = async () => {
     if (!hasGeminiKey()) {
       setProvider("Fallback local");
       setRecommendations(fallbackRecommendations);
-      setError("Clé Gemini non configurée dans GitHub Pages.");
+      setError("Clé Gemini non configurée. Collez votre clé puis cliquez sur Enregistrer.");
       return;
     }
 
@@ -214,6 +215,23 @@ function AiRecommendations({ country, weakest, forecast2050 }: { country: Countr
         <button className="ai-refresh" onClick={runGemini} disabled={isLoading}>
           <Sparkles size={16} />
           {isLoading ? "Analyse..." : "Générer"}
+        </button>
+      </div>
+      <div className="gemini-key-row">
+        <input
+          value={apiKeyDraft}
+          onChange={(event) => setApiKeyDraft(event.target.value)}
+          placeholder="Coller la clé Gemini API"
+          type="password"
+        />
+        <button
+          onClick={() => {
+            saveGeminiKey(apiKeyDraft);
+            setProvider("Gemini 2.5 Flash");
+            void runGemini();
+          }}
+        >
+          Enregistrer
         </button>
       </div>
       {error && <p className="ai-error">{error}</p>}

@@ -593,6 +593,36 @@ a {
   opacity: 0.72;
 }
 
+.gemini-key-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  margin: -4px 0 12px;
+}
+
+.gemini-key-row input,
+.gemini-key-row button {
+  min-height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.gemini-key-row input {
+  width: 100%;
+  padding: 0 12px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+  outline: 0;
+}
+
+.gemini-key-row button {
+  padding: 0 12px;
+  color: var(--text);
+  background: var(--surface-strong);
+  cursor: pointer;
+  font-weight: 800;
+}
+
 .ai-error {
   margin: -6px 0 12px;
   color: var(--amber);
@@ -712,8 +742,13 @@ a {
 
   .hero-actions button,
   .primary-cta,
-  .secondary-cta {
+  .secondary-cta,
+  .gemini-key-row button {
     width: 100%;
     justify-content: center;
+  }
+
+  .gemini-key-row {
+    grid-template-columns: 1fr;
   }
 }

@@ -18,6 +18,7 @@ type GeminiResponse = {
 
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY as string | undefined;
 const GEMINI_MODEL = import.meta.env.VITE_GEMINI_MODEL || "gemini-2.5-flash";
+const STORAGE_KEY = "greenfair_gemini_api_key";
 
 function buildPrompt(country: Country, latest: YearPoint, forecast2050: ForecastPoint, weakest: string) {
   return `
@@ -59,7 +60,27 @@ function extractJson(text: string) {
 }
 
 export function hasGeminiKey() {
-  return Boolean(GEMINI_API_KEY);
+  return Boolean(getGeminiKey());
+}
+
+export function getGeminiKey() {
+  if (GEMINI_API_KEY) {
+    return GEMINI_API_KEY;
+  }
+
+  if (typeof window === "undefined") {
+    return "";
+  }
+
+  return window.localStorage.getItem(STORAGE_KEY) || "";
+}
+
+export function saveGeminiKey(apiKey: string) {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  window.localStorage.setItem(STORAGE_KEY, apiKey.trim());
 }
 
 export async function generateGeminiRecommendations(
@@ -68,7 +89,9 @@ export async function generateGeminiRecommendations(
   forecast2050: ForecastPoint,
   weakest: string
 ): Promise<GeminiRecommendation[]> {
-  if (!GEMINI_API_KEY) {
+  const apiKey = getGeminiKey();
+
+  if (!apiKey) {
     throw new Error("Clé Gemini absente. Ajoutez VITE_GEMINI_API_KEY dans les secrets GitHub Pages.");
   }
 
@@ -76,7 +99,7 @@ export async function generateGeminiRecommendations(
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "x-goog-api-key": GEMINI_API_KEY
+      "x-goog-api-key": apiKey
     },
     body: JSON.stringify({
       contents: [
