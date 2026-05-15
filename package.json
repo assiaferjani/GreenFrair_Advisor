@@ -4,8 +4,9 @@
   "version": "1.0.0",
   "description": "GreenFair Advisor - SaaS predictive country intelligence platform.",
   "scripts": {
-    "dev": "vite --host 127.0.0.1",
-    "build": "tsc && vite build",
+    "dev": "node scripts/use-vite-index.cjs && vite --host 127.0.0.1",
+    "build": "node scripts/use-vite-index.cjs && tsc && vite build",
+    "publish:root": "npm run build && node scripts/publish-root.cjs",
     "preview": "vite preview --host 127.0.0.1",
     "api": "uvicorn apps.api.main:app --reload --host 127.0.0.1 --port 8000",
     "lint": "eslint ."
