@@ -39,10 +39,24 @@ import {
   Users
 } from "lucide-react";
 import { buildForecast, buildHistory, countries, Country, countryProfile, leaderboard } from "./data/greenfair";
+import collabGreenfairData from "./data/collabGreenfairData.json";
 import { exportDashboardPdf, exportRowsCsv, exportRowsXlsx } from "./lib/exports";
 import { generateGeminiRecommendations, GeminiRecommendation, getGeminiKey, hasGeminiKey, saveGeminiKey } from "./lib/gemini";
 
 const formatScore = (score: number) => `${score.toFixed(1)}/100`;
+const collabData = collabGreenfairData as any;
+
+function getCollabCountry(code: string) {
+  return collabData.latestScores.find((row: any) => row.countryCode === code) ?? collabData.latestScores[0];
+}
+
+function getPillarRows(row: any) {
+  return [
+    { name: "Environnement", value: row?.pillarScores?.environment ?? 0, fill: "#16a34a" },
+    { name: "Social", value: row?.pillarScores?.social ?? 0, fill: "#0284c7" },
+    { name: "Économie", value: row?.pillarScores?.economy ?? 0, fill: "#d97706" }
+  ];
+}
 
 function Stat({ label, value, tone }: { label: string; value: string; tone?: string }) {
   return (
@@ -50,6 +64,16 @@ function Stat({ label, value, tone }: { label: string; value: string; tone?: str
       <span>{label}</span>
       <strong className={tone}>{value}</strong>
     </div>
+  );
+}
+
+function DetailCard({ label, value, text }: { label: string; value: string; text: string }) {
+  return (
+    <article className="detail-card">
+      <span>{label}</span>
+      <strong>{value}</strong>
+      <p>{text}</p>
+    </article>
   );
 }
 
@@ -267,6 +291,11 @@ function Dashboard({
 }) {
   const profile = useMemo(() => countryProfile(selected), [selected]);
   const compareProfile = useMemo(() => countryProfile(compare), [compare]);
+  const collabCountry = useMemo(() => getCollabCountry(selected.code), [selected]);
+  const collabPillars = useMemo(() => getPillarRows(collabCountry), [collabCountry]);
+  const collabYearly = useMemo(() => collabData.yearlyScores.filter((row: any) => row.countryCode === selected.code), [selected]);
+  const collabProjection = useMemo(() => collabData.projection2030.find((row: any) => row.countryCode === selected.code), [selected]);
+  const cluster = useMemo(() => collabData.clusterAssignments.find((row: any) => row.countryCode === selected.code), [selected]);
   const comparisonRows = useMemo(
     () =>
       countries.map((country) => {
@@ -322,6 +351,24 @@ function Dashboard({
         <Stat label="Pilier prioritaire" value={profile.weakest.name} tone="amber-text" />
       </section>
 
+      <section className="fusion-grid">
+        <DetailCard
+          label="Données collaboratives"
+          value={`Rang #${collabCountry.rank} - ${collabCountry.level}`}
+          text={`Score notebook 2025: ${collabCountry.greenfairScore.toFixed(1)}/100. Source: ${collabData.metadata.dataSource.replaceAll("_", " ")}.`}
+        />
+        <DetailCard
+          label="Projection 2030"
+          value={formatScore(collabProjection?.score ?? collabCountry.projection2030.score)}
+          text={`Variation vs 2025: ${(collabProjection?.variation ?? collabCountry.projection2030.variation).toFixed(2)} points. Lecture scénario, non prévision officielle.`}
+        />
+        <DetailCard
+          label="Clustering K-Means"
+          value={cluster?.clusterLabel ?? "Profil stratégique"}
+          text={`Cluster ${cluster?.cluster ?? collabCountry.cluster}: comparaison avec des pays au profil GreenFair proche.`}
+        />
+      </section>
+
       <section className="chart-grid">
         <div className="panel wide">
           <div className="panel-title">
@@ -352,10 +399,10 @@ function Dashboard({
         <div className="panel">
           <div className="panel-title">
             <Target size={20} />
-            <h3>Radar piliers</h3>
+            <h3>Radar piliers 2025</h3>
           </div>
           <ResponsiveContainer width="100%" height={300}>
-            <RadarChart data={profile.pillars}>
+            <RadarChart data={collabPillars}>
               <PolarGrid stroke="rgba(255,255,255,.14)" />
               <PolarAngleAxis dataKey="name" stroke="var(--muted)" />
               <Radar dataKey="value" stroke="#20c997" fill="#20c997" fillOpacity={0.38} />
@@ -387,12 +434,12 @@ function Dashboard({
         <div className="panel">
           <div className="panel-title">
             <Users size={20} />
-            <h3>Mix des piliers</h3>
+            <h3>Mix des piliers notebook</h3>
           </div>
           <ResponsiveContainer width="100%" height={280}>
             <PieChart>
-              <Pie data={profile.pillars} dataKey="value" nameKey="name" innerRadius={58} outerRadius={98} paddingAngle={4}>
-                {profile.pillars.map((entry) => (
+              <Pie data={collabPillars} dataKey="value" nameKey="name" innerRadius={58} outerRadius={98} paddingAngle={4}>
+                {collabPillars.map((entry) => (
                   <Cell fill={entry.fill} key={entry.name} />
                 ))}
               </Pie>
@@ -463,6 +510,53 @@ function Dashboard({
           </ResponsiveContainer>
         </div>
 
+        <div className="panel wide">
+          <div className="panel-title split">
+            <div>
+              <span className="eyebrow">Fusion du deuxième site</span>
+              <h3>Historique notebook 1998-2025 et scénario 2030</h3>
+            </div>
+            <span className="level-pill">{collabCountry.level}</span>
+          </div>
+          <ResponsiveContainer width="100%" height={320}>
+            <ComposedChart data={[...collabYearly, { year: 2030, greenfairScore: collabProjection?.score, dataType: "projection" }]}>
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(15,118,110,.12)" />
+              <XAxis dataKey="year" stroke="var(--muted)" />
+              <YAxis domain={[0, 100]} stroke="var(--muted)" />
+              <Tooltip contentStyle={{ background: "var(--surface-strong)", border: "1px solid var(--line)", borderRadius: 12 }} />
+              <Area type="monotone" dataKey="greenfairScore" name="Score notebook" stroke="#16a34a" fill="#16a34a24" strokeWidth={3} />
+              <Bar dataKey="pillarScores.environment" name="Env" fill="#16a34a55" radius={[6, 6, 0, 0]} />
+            </ComposedChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="panel">
+          <div className="panel-title">
+            <Sparkles size={20} />
+            <h3>Recommandations notebook</h3>
+          </div>
+          <div className="insight-list">
+            {(collabData.recommendationsByCountry[selected.code] ?? collabCountry.recommendations).map((item: string) => (
+              <p key={item}>{item}</p>
+            ))}
+          </div>
+        </div>
+
+        <div className="panel">
+          <div className="panel-title">
+            <Target size={20} />
+            <h3>Modèles ML comparés</h3>
+          </div>
+          <div className="model-list">
+            {collabData.modelComparison.map((model: any) => (
+              <article key={model.id}>
+                <strong>{model.label}</strong>
+                <span>MAE {model.mae} - RMSE {model.rmse} - R² {model.r2}</span>
+              </article>
+            ))}
+          </div>
+        </div>
+
         <AiRecommendations country={selected} weakest={profile.weakest.name} forecast2050={profile.forecast2050.base} />
       </section>
     </main>
@@ -472,7 +566,7 @@ function Dashboard({
 export default function App() {
   const [selected, setSelected] = useState(countries[0]);
   const [compare, setCompare] = useState(countries[8]);
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState(false);
   const [favorites, setFavorites] = useState<string[]>(["TUN"]);
   const profile = countryProfile(selected);
 
@@ -545,12 +639,20 @@ export default function App() {
       <section className="insights-band" id="insights">
         <div>
           <span className="eyebrow">Investor-ready narrative</span>
-          <h2>Du notebook ML à un produit SaaS scalable</h2>
+          <h2>Deux dashboards fusionnés dans une expérience SaaS claire.</h2>
           <p>
-            Le backend expose les endpoints pays, prévisions et recommandations. Le frontend fonctionne déjà avec des
-            données de démonstration réalistes et peut basculer vers l'API FastAPI dès que les fichiers World Bank sont
-            branchés.
+            Le site combine l’expérience premium GreenFair Advisor avec les détails du dashboard collaboratif:
+            méthodologie World Bank, 15 indicateurs, clustering, focus Tunisie, projections 2030 et recommandations
+            Gemini dynamiques.
           </p>
+          <div className="method-grid">
+            {collabData.methodology.thresholds.map((item: any) => (
+              <article key={item.label}>
+                <strong>{item.label}</strong>
+                <span>à partir de {item.minScore}/100</span>
+              </article>
+            ))}
+          </div>
         </div>
         <div className="leader-strip">
           {leaderboard.slice(0, 4).map(({ country, score }) => (

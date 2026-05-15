@@ -1,0 +1,4898 @@
+{
+  "metadata": {
+    "generatedAt": "2026-05-14T22:33:48.114083+00:00",
+    "sourceNotebook": "notebooks/greenfair_score_m1_project.ipynb",
+    "dataSource": "live_world_bank",
+    "securityNotice": "The source notebook had an exposed Gemini key. It was removed from this repo copy and should be rotated by the owner."
+  },
+  "countries": [
+    {
+      "code": "TUN",
+      "name": "Tunisia"
+    },
+    {
+      "code": "MAR",
+      "name": "Morocco"
+    },
+    {
+      "code": "EGY",
+      "name": "Egypt, Arab Rep."
+    },
+    {
+      "code": "SEN",
+      "name": "Senegal"
+    },
+    {
+      "code": "KEN",
+      "name": "Kenya"
+    },
+    {
+      "code": "ETH",
+      "name": "Ethiopia"
+    },
+    {
+      "code": "IND",
+      "name": "India"
+    },
+    {
+      "code": "BGD",
+      "name": "Bangladesh"
+    },
+    {
+      "code": "VNM",
+      "name": "Viet Nam"
+    },
+    {
+      "code": "BRA",
+      "name": "Brazil"
+    }
+  ],
+  "indicators": [
+    {
+      "code": "EN.ATM.CO2E.PC",
+      "label": "CO2 par habitant",
+      "pillar": "environment",
+      "direction": "negative",
+      "unit": "tonnes par habitant"
+    },
+    {
+      "code": "EG.FEC.RNEW.ZS",
+      "label": "Energie renouvelable",
+      "pillar": "environment",
+      "direction": "positive",
+      "unit": "% de la consommation finale"
+    },
+    {
+      "code": "AG.LND.FRST.ZS",
+      "label": "Surface forestiere",
+      "pillar": "environment",
+      "direction": "positive",
+      "unit": "% du territoire"
+    },
+    {
+      "code": "EN.ATM.PM25.MC.M3",
+      "label": "Pollution PM2.5",
+      "pillar": "environment",
+      "direction": "negative",
+      "unit": "microgrammes par m3"
+    },
+    {
+      "code": "ER.PTD.TOTL.ZS",
+      "label": "Aires protegees",
+      "pillar": "environment",
+      "direction": "positive",
+      "unit": "% du territoire"
+    },
+    {
+      "code": "SL.UEM.TOTL.ZS",
+      "label": "Chomage",
+      "pillar": "social",
+      "direction": "negative",
+      "unit": "% de la population active"
+    },
+    {
+      "code": "SE.ADT.LITR.ZS",
+      "label": "Alphabetisation",
+      "pillar": "social",
+      "direction": "positive",
+      "unit": "% des adultes"
+    },
+    {
+      "code": "SH.XPD.CHEX.GD.ZS",
+      "label": "Depenses de sante",
+      "pillar": "social",
+      "direction": "positive",
+      "unit": "% du PIB"
+    },
+    {
+      "code": "SP.DYN.LE00.IN",
+      "label": "Esperance de vie",
+      "pillar": "social",
+      "direction": "positive",
+      "unit": "annees"
+    },
+    {
+      "code": "SE.SEC.ENRR",
+      "label": "Scolarisation secondaire",
+      "pillar": "social",
+      "direction": "positive",
+      "unit": "% brut"
+    },
+    {
+      "code": "NY.GDP.PCAP.CD",
+      "label": "PIB par habitant",
+      "pillar": "economy",
+      "direction": "positive",
+      "unit": "USD courants"
+    },
+    {
+      "code": "NY.GDP.MKTP.KD.ZG",
+      "label": "Croissance PIB",
+      "pillar": "economy",
+      "direction": "positive",
+      "unit": "% annuel"
+    },
+    {
+      "code": "FP.CPI.TOTL.ZG",
+      "label": "Inflation",
+      "pillar": "economy",
+      "direction": "negative",
+      "unit": "% annuel"
+    },
+    {
+      "code": "NE.EXP.GNFS.ZS",
+      "label": "Exportations",
+      "pillar": "economy",
+      "direction": "positive",
+      "unit": "% du PIB"
+    },
+    {
+      "code": "NE.GDI.TOTL.ZS",
+      "label": "Investissement",
+      "pillar": "economy",
+      "direction": "positive",
+      "unit": "% du PIB"
+    }
+  ],
+  "pillars": [
+    {
+      "id": "environment",
+      "label": "Environnement",
+      "weight": 0.4,
+      "color": "#10b981"
+    },
+    {
+      "id": "social",
+      "label": "Social",
+      "weight": 0.35,
+      "color": "#38bdf8"
+    },
+    {
+      "id": "economy",
+      "label": "Economie",
+      "weight": 0.25,
+      "color": "#f59e0b"
+    }
+  ],
+  "weights": {
+    "environment": 0.4,
+    "social": 0.35,
+    "economy": 0.25
+  },
+  "negativeIndicators": [
+    "EN.ATM.CO2E.PC",
+    "EN.ATM.PM25.MC.M3",
+    "SL.UEM.TOTL.ZS",
+    "FP.CPI.TOTL.ZG"
+  ],
+  "years": [
+    {
+      "year": 1998,
+      "dataType": "observed"
+    },
+    {
+      "year": 1999,
+      "dataType": "observed"
+    },
+    {
+      "year": 2000,
+      "dataType": "observed"
+    },
+    {
+      "year": 2001,
+      "dataType": "observed"
+    },
+    {
+      "year": 2002,
+      "dataType": "observed"
+    },
+    {
+      "year": 2003,
+      "dataType": "observed"
+    },
+    {
+      "year": 2004,
+      "dataType": "observed"
+    },
+    {
+      "year": 2005,
+      "dataType": "observed"
+    },
+    {
+      "year": 2006,
+      "dataType": "observed"
+    },
+    {
+      "year": 2007,
+      "dataType": "observed"
+    },
+    {
+      "year": 2008,
+      "dataType": "observed"
+    },
+    {
+      "year": 2009,
+      "dataType": "observed"
+    },
+    {
+      "year": 2010,
+      "dataType": "observed"
+    },
+    {
+      "year": 2011,
+      "dataType": "observed"
+    },
+    {
+      "year": 2012,
+      "dataType": "observed"
+    },
+    {
+      "year": 2013,
+      "dataType": "observed"
+    },
+    {
+      "year": 2014,
+      "dataType": "observed"
+    },
+    {
+      "year": 2015,
+      "dataType": "observed"
+    },
+    {
+      "year": 2016,
+      "dataType": "observed"
+    },
+    {
+      "year": 2017,
+      "dataType": "observed"
+    },
+    {
+      "year": 2018,
+      "dataType": "observed"
+    },
+    {
+      "year": 2019,
+      "dataType": "observed"
+    },
+    {
+      "year": 2020,
+      "dataType": "observed"
+    },
+    {
+      "year": 2021,
+      "dataType": "observed"
+    },
+    {
+      "year": 2022,
+      "dataType": "observed"
+    },
+    {
+      "year": 2023,
+      "dataType": "observed"
+    },
+    {
+      "year": 2024,
+      "dataType": "extrapolated_scenario"
+    },
+    {
+      "year": 2025,
+      "dataType": "extrapolated_scenario"
+    },
+    {
+      "year": 2030,
+      "dataType": "projection_scenario"
+    }
+  ],
+  "yearlyScores": [
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 1998,
+      "dataType": "observed",
+      "greenfairScore": 62.46,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 66.67,
+        "social": 73.92,
+        "economy": 39.68
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 1998,
+      "dataType": "observed",
+      "greenfairScore": 55.14,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 47.52,
+        "social": 68.06,
+        "economy": 49.22
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 1998,
+      "dataType": "observed",
+      "greenfairScore": 45.5,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 49.17,
+        "social": 47.84,
+        "economy": 36.35
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 1998,
+      "dataType": "observed",
+      "greenfairScore": 40.34,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 25.05,
+        "social": 51.24,
+        "economy": 49.56
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 1998,
+      "dataType": "observed",
+      "greenfairScore": 37.93,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 59.02,
+        "social": 23.87,
+        "economy": 23.87
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 1998,
+      "dataType": "observed",
+      "greenfairScore": 36.01,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 38.47,
+        "social": 29.2,
+        "economy": 41.62
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 1998,
+      "dataType": "observed",
+      "greenfairScore": 35.26,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 27.88,
+        "social": 41.8,
+        "economy": 37.9
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 1998,
+      "dataType": "observed",
+      "greenfairScore": 34.71,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 11.65,
+        "social": 56.01,
+        "economy": 41.77
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 1998,
+      "dataType": "observed",
+      "greenfairScore": 34.65,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 28.23,
+        "social": 33.16,
+        "economy": 47.0
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 1998,
+      "dataType": "observed",
+      "greenfairScore": 34.45,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 31.25,
+        "social": 35.79,
+        "economy": 37.71
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 1999,
+      "dataType": "observed",
+      "greenfairScore": 61.43,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 66.55,
+        "social": 73.06,
+        "economy": 36.97
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 1999,
+      "dataType": "observed",
+      "greenfairScore": 55.69,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 47.84,
+        "social": 68.64,
+        "economy": 50.1
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 1999,
+      "dataType": "observed",
+      "greenfairScore": 45.15,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 48.74,
+        "social": 48.01,
+        "economy": 35.4
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 1999,
+      "dataType": "observed",
+      "greenfairScore": 40.88,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 24.5,
+        "social": 52.57,
+        "economy": 50.73
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 1999,
+      "dataType": "observed",
+      "greenfairScore": 38.83,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 58.59,
+        "social": 23.38,
+        "economy": 28.83
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 1999,
+      "dataType": "observed",
+      "greenfairScore": 37.32,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 27.49,
+        "social": 42.13,
+        "economy": 46.3
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 1999,
+      "dataType": "observed",
+      "greenfairScore": 36.37,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 37.73,
+        "social": 29.65,
+        "economy": 43.61
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 1999,
+      "dataType": "observed",
+      "greenfairScore": 35.21,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 12.22,
+        "social": 56.38,
+        "economy": 42.37
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 1999,
+      "dataType": "observed",
+      "greenfairScore": 35.0,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 31.27,
+        "social": 36.84,
+        "economy": 38.4
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 1999,
+      "dataType": "observed",
+      "greenfairScore": 33.07,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 27.4,
+        "social": 32.88,
+        "economy": 42.41
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2000,
+      "dataType": "observed",
+      "greenfairScore": 62.38,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 66.03,
+        "social": 73.6,
+        "economy": 40.84
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2000,
+      "dataType": "observed",
+      "greenfairScore": 57.53,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 48.32,
+        "social": 69.22,
+        "economy": 55.92
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2000,
+      "dataType": "observed",
+      "greenfairScore": 44.55,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 48.33,
+        "social": 48.31,
+        "economy": 33.25
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2000,
+      "dataType": "observed",
+      "greenfairScore": 40.97,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 24.19,
+        "social": 53.61,
+        "economy": 50.13
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2000,
+      "dataType": "observed",
+      "greenfairScore": 40.12,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 58.26,
+        "social": 24.9,
+        "economy": 32.41
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2000,
+      "dataType": "observed",
+      "greenfairScore": 36.15,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 27.33,
+        "social": 43.38,
+        "economy": 40.13
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2000,
+      "dataType": "observed",
+      "greenfairScore": 36.06,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 38.07,
+        "social": 30.02,
+        "economy": 41.29
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2000,
+      "dataType": "observed",
+      "greenfairScore": 35.86,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 31.11,
+        "social": 37.57,
+        "economy": 41.06
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2000,
+      "dataType": "observed",
+      "greenfairScore": 35.02,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 12.29,
+        "social": 55.8,
+        "economy": 42.3
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2000,
+      "dataType": "observed",
+      "greenfairScore": 33.52,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 27.13,
+        "social": 33.94,
+        "economy": 43.14
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2001,
+      "dataType": "observed",
+      "greenfairScore": 61.85,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 65.48,
+        "social": 74.89,
+        "economy": 37.79
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2001,
+      "dataType": "observed",
+      "greenfairScore": 58.07,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 48.06,
+        "social": 71.09,
+        "economy": 55.88
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2001,
+      "dataType": "observed",
+      "greenfairScore": 46.35,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 48.82,
+        "social": 49.07,
+        "economy": 38.6
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2001,
+      "dataType": "observed",
+      "greenfairScore": 42.14,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 57.94,
+        "social": 27.21,
+        "economy": 37.76
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2001,
+      "dataType": "observed",
+      "greenfairScore": 41.62,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 24.3,
+        "social": 55.02,
+        "economy": 50.58
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2001,
+      "dataType": "observed",
+      "greenfairScore": 37.08,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 27.26,
+        "social": 44.16,
+        "economy": 42.87
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2001,
+      "dataType": "observed",
+      "greenfairScore": 36.55,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 38.03,
+        "social": 30.78,
+        "economy": 42.26
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2001,
+      "dataType": "observed",
+      "greenfairScore": 35.73,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 27.07,
+        "social": 36.19,
+        "economy": 48.93
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2001,
+      "dataType": "observed",
+      "greenfairScore": 35.57,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 29.8,
+        "social": 38.04,
+        "economy": 41.34
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2001,
+      "dataType": "observed",
+      "greenfairScore": 34.76,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 12.12,
+        "social": 57.21,
+        "economy": 39.55
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2002,
+      "dataType": "observed",
+      "greenfairScore": 62.32,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 65.75,
+        "social": 75.76,
+        "economy": 38.03
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2002,
+      "dataType": "observed",
+      "greenfairScore": 57.22,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 47.17,
+        "social": 70.13,
+        "economy": 55.24
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2002,
+      "dataType": "observed",
+      "greenfairScore": 45.97,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 49.15,
+        "social": 49.45,
+        "economy": 35.99
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2002,
+      "dataType": "observed",
+      "greenfairScore": 41.16,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 24.67,
+        "social": 56.04,
+        "economy": 46.72
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2002,
+      "dataType": "observed",
+      "greenfairScore": 40.09,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 57.86,
+        "social": 28.18,
+        "economy": 28.34
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2002,
+      "dataType": "observed",
+      "greenfairScore": 37.01,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 26.75,
+        "social": 44.91,
+        "economy": 42.34
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2002,
+      "dataType": "observed",
+      "greenfairScore": 36.22,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 38.6,
+        "social": 32.14,
+        "economy": 38.14
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2002,
+      "dataType": "observed",
+      "greenfairScore": 35.43,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 27.02,
+        "social": 38.47,
+        "economy": 44.62
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2002,
+      "dataType": "observed",
+      "greenfairScore": 35.3,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 29.21,
+        "social": 39.2,
+        "economy": 39.59
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2002,
+      "dataType": "observed",
+      "greenfairScore": 34.13,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 11.89,
+        "social": 56.67,
+        "economy": 38.17
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2003,
+      "dataType": "observed",
+      "greenfairScore": 61.09,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 66.2,
+        "social": 74.41,
+        "economy": 34.26
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2003,
+      "dataType": "observed",
+      "greenfairScore": 57.92,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 46.96,
+        "social": 70.77,
+        "economy": 57.48
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2003,
+      "dataType": "observed",
+      "greenfairScore": 46.76,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 50.16,
+        "social": 50.85,
+        "economy": 35.59
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2003,
+      "dataType": "observed",
+      "greenfairScore": 42.13,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 24.85,
+        "social": 56.38,
+        "economy": 49.82
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2003,
+      "dataType": "observed",
+      "greenfairScore": 38.92,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 39.93,
+        "social": 33.99,
+        "economy": 44.21
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2003,
+      "dataType": "observed",
+      "greenfairScore": 38.4,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 57.73,
+        "social": 29.36,
+        "economy": 20.15
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2003,
+      "dataType": "observed",
+      "greenfairScore": 38.17,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 26.58,
+        "social": 45.37,
+        "economy": 46.65
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2003,
+      "dataType": "observed",
+      "greenfairScore": 36.57,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 27.29,
+        "social": 38.74,
+        "economy": 48.36
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2003,
+      "dataType": "observed",
+      "greenfairScore": 35.19,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 28.54,
+        "social": 39.72,
+        "economy": 39.48
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2003,
+      "dataType": "observed",
+      "greenfairScore": 33.55,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 11.77,
+        "social": 54.99,
+        "economy": 38.38
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2004,
+      "dataType": "observed",
+      "greenfairScore": 63.81,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 66.07,
+        "social": 76.05,
+        "economy": 43.08
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2004,
+      "dataType": "observed",
+      "greenfairScore": 57.68,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 45.78,
+        "social": 71.67,
+        "economy": 57.14
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2004,
+      "dataType": "observed",
+      "greenfairScore": 47.79,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 50.0,
+        "social": 52.51,
+        "economy": 37.64
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2004,
+      "dataType": "observed",
+      "greenfairScore": 43.2,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 25.06,
+        "social": 57.68,
+        "economy": 51.95
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2004,
+      "dataType": "observed",
+      "greenfairScore": 42.48,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 56.87,
+        "social": 29.19,
+        "economy": 38.06
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2004,
+      "dataType": "observed",
+      "greenfairScore": 39.39,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 40.0,
+        "social": 35.83,
+        "economy": 43.38
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2004,
+      "dataType": "observed",
+      "greenfairScore": 39.01,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 26.34,
+        "social": 46.07,
+        "economy": 49.38
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2004,
+      "dataType": "observed",
+      "greenfairScore": 38.07,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 29.03,
+        "social": 41.2,
+        "economy": 48.15
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2004,
+      "dataType": "observed",
+      "greenfairScore": 35.12,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 28.27,
+        "social": 39.95,
+        "economy": 39.31
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2004,
+      "dataType": "observed",
+      "greenfairScore": 33.31,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 11.64,
+        "social": 54.72,
+        "economy": 38.03
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2005,
+      "dataType": "observed",
+      "greenfairScore": 63.45,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 66.16,
+        "social": 75.77,
+        "economy": 41.85
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2005,
+      "dataType": "observed",
+      "greenfairScore": 58.02,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 45.41,
+        "social": 72.95,
+        "economy": 57.31
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2005,
+      "dataType": "observed",
+      "greenfairScore": 48.41,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 49.77,
+        "social": 53.09,
+        "economy": 39.68
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2005,
+      "dataType": "observed",
+      "greenfairScore": 43.75,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 25.25,
+        "social": 60.31,
+        "economy": 50.15
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2005,
+      "dataType": "observed",
+      "greenfairScore": 41.89,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 56.96,
+        "social": 30.28,
+        "economy": 34.02
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2005,
+      "dataType": "observed",
+      "greenfairScore": 39.54,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 26.24,
+        "social": 46.72,
+        "economy": 50.76
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2005,
+      "dataType": "observed",
+      "greenfairScore": 39.25,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 40.55,
+        "social": 34.89,
+        "economy": 43.29
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2005,
+      "dataType": "observed",
+      "greenfairScore": 38.05,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 28.37,
+        "social": 42.3,
+        "economy": 47.6
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2005,
+      "dataType": "observed",
+      "greenfairScore": 35.87,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 27.89,
+        "social": 40.74,
+        "economy": 41.81
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2005,
+      "dataType": "observed",
+      "greenfairScore": 33.65,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 11.11,
+        "social": 53.52,
+        "economy": 41.91
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2006,
+      "dataType": "observed",
+      "greenfairScore": 65.03,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 66.19,
+        "social": 77.8,
+        "economy": 45.28
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2006,
+      "dataType": "observed",
+      "greenfairScore": 58.92,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 45.77,
+        "social": 74.22,
+        "economy": 58.54
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2006,
+      "dataType": "observed",
+      "greenfairScore": 48.76,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 49.22,
+        "social": 55.9,
+        "economy": 38.05
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2006,
+      "dataType": "observed",
+      "greenfairScore": 44.8,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 25.19,
+        "social": 61.67,
+        "economy": 52.55
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2006,
+      "dataType": "observed",
+      "greenfairScore": 42.42,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 56.77,
+        "social": 33.23,
+        "economy": 32.31
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2006,
+      "dataType": "observed",
+      "greenfairScore": 40.0,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 27.86,
+        "social": 45.52,
+        "economy": 51.71
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2006,
+      "dataType": "observed",
+      "greenfairScore": 39.91,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 26.57,
+        "social": 46.86,
+        "economy": 51.5
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2006,
+      "dataType": "observed",
+      "greenfairScore": 39.31,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 41.32,
+        "social": 36.26,
+        "economy": 40.36
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2006,
+      "dataType": "observed",
+      "greenfairScore": 36.68,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 27.88,
+        "social": 42.49,
+        "economy": 42.64
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2006,
+      "dataType": "observed",
+      "greenfairScore": 33.59,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 10.31,
+        "social": 53.13,
+        "economy": 43.5
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2007,
+      "dataType": "observed",
+      "greenfairScore": 66.55,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 66.21,
+        "social": 78.6,
+        "economy": 50.23
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2007,
+      "dataType": "observed",
+      "greenfairScore": 59.82,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 45.58,
+        "social": 74.99,
+        "economy": 61.36
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2007,
+      "dataType": "observed",
+      "greenfairScore": 49.8,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 49.12,
+        "social": 56.9,
+        "economy": 40.94
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2007,
+      "dataType": "observed",
+      "greenfairScore": 46.04,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 24.96,
+        "social": 63.15,
+        "economy": 55.81
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2007,
+      "dataType": "observed",
+      "greenfairScore": 43.07,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 56.44,
+        "social": 36.38,
+        "economy": 31.05
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2007,
+      "dataType": "observed",
+      "greenfairScore": 40.8,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 27.31,
+        "social": 47.9,
+        "economy": 52.46
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2007,
+      "dataType": "observed",
+      "greenfairScore": 40.19,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 27.38,
+        "social": 47.49,
+        "economy": 50.47
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2007,
+      "dataType": "observed",
+      "greenfairScore": 39.39,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 40.27,
+        "social": 37.31,
+        "economy": 40.91
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2007,
+      "dataType": "observed",
+      "greenfairScore": 37.09,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 28.64,
+        "social": 43.0,
+        "economy": 42.32
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2007,
+      "dataType": "observed",
+      "greenfairScore": 33.58,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 8.89,
+        "social": 54.01,
+        "economy": 44.46
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2008,
+      "dataType": "observed",
+      "greenfairScore": 67.19,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 66.03,
+        "social": 79.58,
+        "economy": 51.68
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2008,
+      "dataType": "observed",
+      "greenfairScore": 57.77,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 45.37,
+        "social": 75.05,
+        "economy": 53.4
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2008,
+      "dataType": "observed",
+      "greenfairScore": 47.21,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 48.73,
+        "social": 58.67,
+        "economy": 28.72
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2008,
+      "dataType": "observed",
+      "greenfairScore": 46.12,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 24.78,
+        "social": 63.63,
+        "economy": 55.74
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2008,
+      "dataType": "observed",
+      "greenfairScore": 41.4,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 26.73,
+        "social": 48.6,
+        "economy": 54.78
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2008,
+      "dataType": "observed",
+      "greenfairScore": 40.33,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 40.08,
+        "social": 39.29,
+        "economy": 42.21
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2008,
+      "dataType": "observed",
+      "greenfairScore": 40.19,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 56.16,
+        "social": 36.17,
+        "economy": 20.27
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2008,
+      "dataType": "observed",
+      "greenfairScore": 40.19,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 28.11,
+        "social": 49.28,
+        "economy": 46.8
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2008,
+      "dataType": "observed",
+      "greenfairScore": 37.16,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 29.43,
+        "social": 42.71,
+        "economy": 41.75
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2008,
+      "dataType": "observed",
+      "greenfairScore": 32.68,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 7.32,
+        "social": 54.33,
+        "economy": 42.94
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2009,
+      "dataType": "observed",
+      "greenfairScore": 65.69,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 66.4,
+        "social": 79.55,
+        "economy": 45.15
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2009,
+      "dataType": "observed",
+      "greenfairScore": 59.29,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 45.34,
+        "social": 76.13,
+        "economy": 58.03
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2009,
+      "dataType": "observed",
+      "greenfairScore": 49.04,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 47.55,
+        "social": 59.38,
+        "economy": 36.96
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2009,
+      "dataType": "observed",
+      "greenfairScore": 45.0,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 24.96,
+        "social": 63.11,
+        "economy": 51.72
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2009,
+      "dataType": "observed",
+      "greenfairScore": 43.85,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 55.89,
+        "social": 38.39,
+        "economy": 32.23
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2009,
+      "dataType": "observed",
+      "greenfairScore": 42.39,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 43.09,
+        "social": 41.9,
+        "economy": 41.98
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2009,
+      "dataType": "observed",
+      "greenfairScore": 41.49,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 26.64,
+        "social": 51.65,
+        "economy": 51.0
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2009,
+      "dataType": "observed",
+      "greenfairScore": 41.33,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 28.7,
+        "social": 49.77,
+        "economy": 49.75
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2009,
+      "dataType": "observed",
+      "greenfairScore": 37.84,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 29.96,
+        "social": 43.76,
+        "economy": 42.15
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2009,
+      "dataType": "observed",
+      "greenfairScore": 31.18,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 6.0,
+        "social": 53.4,
+        "economy": 40.37
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2010,
+      "dataType": "observed",
+      "greenfairScore": 68.52,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 65.63,
+        "social": 79.84,
+        "economy": 57.31
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2010,
+      "dataType": "observed",
+      "greenfairScore": 59.92,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 45.33,
+        "social": 78.86,
+        "economy": 56.73
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2010,
+      "dataType": "observed",
+      "greenfairScore": 50.95,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 46.6,
+        "social": 60.5,
+        "economy": 44.54
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2010,
+      "dataType": "observed",
+      "greenfairScore": 45.85,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 55.59,
+        "social": 42.01,
+        "economy": 35.62
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2010,
+      "dataType": "observed",
+      "greenfairScore": 45.35,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 23.91,
+        "social": 64.06,
+        "economy": 53.44
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2010,
+      "dataType": "observed",
+      "greenfairScore": 42.68,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 42.44,
+        "social": 44.02,
+        "economy": 41.17
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2010,
+      "dataType": "observed",
+      "greenfairScore": 42.5,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 26.55,
+        "social": 54.43,
+        "economy": 51.32
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2010,
+      "dataType": "observed",
+      "greenfairScore": 42.06,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 28.86,
+        "social": 50.81,
+        "economy": 50.96
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2010,
+      "dataType": "observed",
+      "greenfairScore": 38.66,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 29.65,
+        "social": 46.91,
+        "economy": 41.52
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2010,
+      "dataType": "observed",
+      "greenfairScore": 31.28,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 5.39,
+        "social": 54.12,
+        "economy": 40.74
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2011,
+      "dataType": "observed",
+      "greenfairScore": 68.47,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 64.89,
+        "social": 80.94,
+        "economy": 56.73
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2011,
+      "dataType": "observed",
+      "greenfairScore": 59.78,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 46.91,
+        "social": 79.31,
+        "economy": 53.04
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2011,
+      "dataType": "observed",
+      "greenfairScore": 49.42,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 46.02,
+        "social": 60.94,
+        "economy": 38.72
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2011,
+      "dataType": "observed",
+      "greenfairScore": 46.18,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 55.16,
+        "social": 40.99,
+        "economy": 39.05
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2011,
+      "dataType": "observed",
+      "greenfairScore": 44.38,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 26.69,
+        "social": 57.26,
+        "economy": 54.64
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2011,
+      "dataType": "observed",
+      "greenfairScore": 43.14,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 25.32,
+        "social": 59.71,
+        "economy": 48.44
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2011,
+      "dataType": "observed",
+      "greenfairScore": 42.63,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 41.16,
+        "social": 46.64,
+        "economy": 39.37
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2011,
+      "dataType": "observed",
+      "greenfairScore": 40.26,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 24.26,
+        "social": 51.72,
+        "economy": 49.79
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2011,
+      "dataType": "observed",
+      "greenfairScore": 37.41,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 25.37,
+        "social": 47.46,
+        "economy": 42.59
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2011,
+      "dataType": "observed",
+      "greenfairScore": 32.19,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 10.73,
+        "social": 53.15,
+        "economy": 37.16
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2012,
+      "dataType": "observed",
+      "greenfairScore": 67.85,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 64.7,
+        "social": 81.38,
+        "economy": 53.95
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2012,
+      "dataType": "observed",
+      "greenfairScore": 60.79,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 47.13,
+        "social": 79.87,
+        "economy": 55.95
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2012,
+      "dataType": "observed",
+      "greenfairScore": 49.93,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 46.25,
+        "social": 61.21,
+        "economy": 40.03
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2012,
+      "dataType": "observed",
+      "greenfairScore": 47.33,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 54.61,
+        "social": 42.69,
+        "economy": 42.18
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2012,
+      "dataType": "observed",
+      "greenfairScore": 45.05,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 25.68,
+        "social": 60.99,
+        "economy": 53.72
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2012,
+      "dataType": "observed",
+      "greenfairScore": 44.34,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 27.04,
+        "social": 58.79,
+        "economy": 51.79
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2012,
+      "dataType": "observed",
+      "greenfairScore": 41.65,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 36.76,
+        "social": 45.35,
+        "economy": 44.29
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2012,
+      "dataType": "observed",
+      "greenfairScore": 38.71,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 19.68,
+        "social": 52.97,
+        "economy": 49.19
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2012,
+      "dataType": "observed",
+      "greenfairScore": 36.02,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 20.3,
+        "social": 47.53,
+        "economy": 45.07
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2012,
+      "dataType": "observed",
+      "greenfairScore": 32.39,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 10.82,
+        "social": 53.11,
+        "economy": 37.88
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2013,
+      "dataType": "observed",
+      "greenfairScore": 69.04,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 64.57,
+        "social": 84.47,
+        "economy": 54.6
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2013,
+      "dataType": "observed",
+      "greenfairScore": 60.57,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 46.54,
+        "social": 78.58,
+        "economy": 57.81
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2013,
+      "dataType": "observed",
+      "greenfairScore": 50.12,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 46.11,
+        "social": 61.57,
+        "economy": 40.49
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2013,
+      "dataType": "observed",
+      "greenfairScore": 48.75,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 54.5,
+        "social": 42.4,
+        "economy": 48.45
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2013,
+      "dataType": "observed",
+      "greenfairScore": 45.17,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 25.94,
+        "social": 63.15,
+        "economy": 50.76
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2013,
+      "dataType": "observed",
+      "greenfairScore": 44.44,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 27.56,
+        "social": 58.09,
+        "economy": 52.34
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2013,
+      "dataType": "observed",
+      "greenfairScore": 43.15,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 42.65,
+        "social": 43.88,
+        "economy": 42.95
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2013,
+      "dataType": "observed",
+      "greenfairScore": 38.65,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 18.91,
+        "social": 54.43,
+        "economy": 48.11
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2013,
+      "dataType": "observed",
+      "greenfairScore": 36.47,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 20.5,
+        "social": 49.21,
+        "economy": 44.18
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2013,
+      "dataType": "observed",
+      "greenfairScore": 30.66,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 7.7,
+        "social": 52.85,
+        "economy": 36.33
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2014,
+      "dataType": "observed",
+      "greenfairScore": 68.9,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 65.02,
+        "social": 85.85,
+        "economy": 51.39
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2014,
+      "dataType": "observed",
+      "greenfairScore": 62.09,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 47.53,
+        "social": 79.88,
+        "economy": 60.49
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2014,
+      "dataType": "observed",
+      "greenfairScore": 54.0,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 52.4,
+        "social": 57.86,
+        "economy": 51.15
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2014,
+      "dataType": "observed",
+      "greenfairScore": 50.29,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 44.94,
+        "social": 62.24,
+        "economy": 42.12
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2014,
+      "dataType": "observed",
+      "greenfairScore": 49.42,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 55.12,
+        "social": 42.46,
+        "economy": 50.02
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2014,
+      "dataType": "observed",
+      "greenfairScore": 45.24,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 24.74,
+        "social": 64.32,
+        "economy": 51.3
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2014,
+      "dataType": "observed",
+      "greenfairScore": 43.55,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 40.99,
+        "social": 43.51,
+        "economy": 47.72
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2014,
+      "dataType": "observed",
+      "greenfairScore": 39.12,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 17.68,
+        "social": 55.82,
+        "economy": 50.02
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2014,
+      "dataType": "observed",
+      "greenfairScore": 36.33,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 19.2,
+        "social": 49.99,
+        "economy": 44.59
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2014,
+      "dataType": "observed",
+      "greenfairScore": 31.31,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 9.26,
+        "social": 53.15,
+        "economy": 36.03
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2015,
+      "dataType": "observed",
+      "greenfairScore": 66.36,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 66.01,
+        "social": 85.03,
+        "economy": 40.79
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2015,
+      "dataType": "observed",
+      "greenfairScore": 62.2,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 45.76,
+        "social": 79.78,
+        "economy": 63.91
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2015,
+      "dataType": "observed",
+      "greenfairScore": 49.6,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 43.83,
+        "social": 62.61,
+        "economy": 40.64
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2015,
+      "dataType": "observed",
+      "greenfairScore": 48.98,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 54.49,
+        "social": 42.07,
+        "economy": 49.86
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2015,
+      "dataType": "observed",
+      "greenfairScore": 46.59,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 33.56,
+        "social": 58.03,
+        "economy": 51.44
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2015,
+      "dataType": "observed",
+      "greenfairScore": 43.83,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 25.21,
+        "social": 62.97,
+        "economy": 46.85
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2015,
+      "dataType": "observed",
+      "greenfairScore": 40.43,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 34.11,
+        "social": 42.77,
+        "economy": 47.29
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2015,
+      "dataType": "observed",
+      "greenfairScore": 39.88,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 19.51,
+        "social": 56.23,
+        "economy": 49.59
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2015,
+      "dataType": "observed",
+      "greenfairScore": 37.61,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 20.13,
+        "social": 52.11,
+        "economy": 45.29
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2015,
+      "dataType": "observed",
+      "greenfairScore": 31.83,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 8.67,
+        "social": 54.25,
+        "economy": 37.51
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2016,
+      "dataType": "observed",
+      "greenfairScore": 65.57,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 66.63,
+        "social": 82.75,
+        "economy": 39.81
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2016,
+      "dataType": "observed",
+      "greenfairScore": 62.15,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 45.51,
+        "social": 80.42,
+        "economy": 63.21
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2016,
+      "dataType": "observed",
+      "greenfairScore": 49.33,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 43.96,
+        "social": 63.18,
+        "economy": 38.53
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2016,
+      "dataType": "observed",
+      "greenfairScore": 48.43,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 54.35,
+        "social": 41.7,
+        "economy": 48.37
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2016,
+      "dataType": "observed",
+      "greenfairScore": 46.38,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 33.88,
+        "social": 58.83,
+        "economy": 48.96
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2016,
+      "dataType": "observed",
+      "greenfairScore": 44.06,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 25.39,
+        "social": 63.7,
+        "economy": 46.45
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2016,
+      "dataType": "observed",
+      "greenfairScore": 42.3,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 36.52,
+        "social": 45.81,
+        "economy": 46.62
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2016,
+      "dataType": "observed",
+      "greenfairScore": 39.61,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 18.71,
+        "social": 56.79,
+        "economy": 48.98
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2016,
+      "dataType": "observed",
+      "greenfairScore": 39.14,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 19.49,
+        "social": 56.34,
+        "economy": 46.5
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2016,
+      "dataType": "observed",
+      "greenfairScore": 32.69,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 10.9,
+        "social": 55.35,
+        "economy": 35.81
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2017,
+      "dataType": "observed",
+      "greenfairScore": 67.37,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 66.48,
+        "social": 82.48,
+        "economy": 47.63
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2017,
+      "dataType": "observed",
+      "greenfairScore": 63.35,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 46.61,
+        "social": 80.99,
+        "economy": 65.44
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2017,
+      "dataType": "observed",
+      "greenfairScore": 48.98,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 45.44,
+        "social": 60.74,
+        "economy": 38.18
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2017,
+      "dataType": "observed",
+      "greenfairScore": 48.58,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 54.63,
+        "social": 42.47,
+        "economy": 47.47
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2017,
+      "dataType": "observed",
+      "greenfairScore": 47.23,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 32.49,
+        "social": 59.35,
+        "economy": 53.85
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2017,
+      "dataType": "observed",
+      "greenfairScore": 44.72,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 26.06,
+        "social": 63.97,
+        "economy": 47.62
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2017,
+      "dataType": "observed",
+      "greenfairScore": 42.71,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 33.97,
+        "social": 47.82,
+        "economy": 49.56
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2017,
+      "dataType": "observed",
+      "greenfairScore": 40.37,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 21.74,
+        "social": 55.55,
+        "economy": 48.94
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2017,
+      "dataType": "observed",
+      "greenfairScore": 39.63,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 20.89,
+        "social": 56.3,
+        "economy": 46.27
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2017,
+      "dataType": "observed",
+      "greenfairScore": 32.44,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 11.74,
+        "social": 57.06,
+        "economy": 31.07
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2018,
+      "dataType": "observed",
+      "greenfairScore": 69.24,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 70.26,
+        "social": 83.62,
+        "economy": 47.47
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2018,
+      "dataType": "observed",
+      "greenfairScore": 63.55,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 45.02,
+        "social": 82.41,
+        "economy": 66.78
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2018,
+      "dataType": "observed",
+      "greenfairScore": 49.43,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 45.22,
+        "social": 60.49,
+        "economy": 40.69
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2018,
+      "dataType": "observed",
+      "greenfairScore": 47.69,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 34.38,
+        "social": 59.48,
+        "economy": 52.49
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2018,
+      "dataType": "observed",
+      "greenfairScore": 47.25,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 54.05,
+        "social": 43.1,
+        "economy": 42.18
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2018,
+      "dataType": "observed",
+      "greenfairScore": 44.37,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 25.0,
+        "social": 63.37,
+        "economy": 48.78
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2018,
+      "dataType": "observed",
+      "greenfairScore": 43.56,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 35.88,
+        "social": 47.4,
+        "economy": 50.45
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2018,
+      "dataType": "observed",
+      "greenfairScore": 40.58,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 21.59,
+        "social": 56.07,
+        "economy": 49.29
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2018,
+      "dataType": "observed",
+      "greenfairScore": 40.05,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 20.15,
+        "social": 57.43,
+        "economy": 47.57
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2018,
+      "dataType": "observed",
+      "greenfairScore": 34.26,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 9.39,
+        "social": 58.96,
+        "economy": 39.48
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2019,
+      "dataType": "observed",
+      "greenfairScore": 69.48,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 70.59,
+        "social": 84.55,
+        "economy": 46.61
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2019,
+      "dataType": "observed",
+      "greenfairScore": 63.16,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 43.79,
+        "social": 82.22,
+        "economy": 67.44
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2019,
+      "dataType": "observed",
+      "greenfairScore": 49.44,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 45.57,
+        "social": 60.66,
+        "economy": 39.92
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2019,
+      "dataType": "observed",
+      "greenfairScore": 48.2,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 35.17,
+        "social": 60.17,
+        "economy": 52.29
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2019,
+      "dataType": "observed",
+      "greenfairScore": 47.98,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 54.42,
+        "social": 43.99,
+        "economy": 43.27
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2019,
+      "dataType": "observed",
+      "greenfairScore": 43.79,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 36.89,
+        "social": 48.2,
+        "economy": 48.67
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2019,
+      "dataType": "observed",
+      "greenfairScore": 43.7,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 25.73,
+        "social": 62.15,
+        "economy": 46.63
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2019,
+      "dataType": "observed",
+      "greenfairScore": 41.79,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 24.83,
+        "social": 58.23,
+        "economy": 45.91
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2019,
+      "dataType": "observed",
+      "greenfairScore": 41.57,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 23.3,
+        "social": 57.47,
+        "economy": 48.56
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2019,
+      "dataType": "observed",
+      "greenfairScore": 35.83,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 8.87,
+        "social": 62.16,
+        "economy": 42.1
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2020,
+      "dataType": "observed",
+      "greenfairScore": 67.35,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 71.28,
+        "social": 81.91,
+        "economy": 40.67
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2020,
+      "dataType": "observed",
+      "greenfairScore": 61.45,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 43.48,
+        "social": 80.71,
+        "economy": 63.23
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2020,
+      "dataType": "observed",
+      "greenfairScore": 47.25,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 44.02,
+        "social": 59.56,
+        "economy": 35.17
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2020,
+      "dataType": "observed",
+      "greenfairScore": 46.4,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 54.65,
+        "social": 43.49,
+        "economy": 37.29
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2020,
+      "dataType": "observed",
+      "greenfairScore": 43.33,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 36.25,
+        "social": 49.42,
+        "economy": 46.16
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2020,
+      "dataType": "observed",
+      "greenfairScore": 42.41,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 28.43,
+        "social": 59.19,
+        "economy": 41.29
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2020,
+      "dataType": "observed",
+      "greenfairScore": 41.13,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 26.56,
+        "social": 55.89,
+        "economy": 43.77
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2020,
+      "dataType": "observed",
+      "greenfairScore": 41.05,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 29.84,
+        "social": 57.8,
+        "economy": 35.54
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2020,
+      "dataType": "observed",
+      "greenfairScore": 40.99,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 25.78,
+        "social": 64.24,
+        "economy": 32.78
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2020,
+      "dataType": "observed",
+      "greenfairScore": 37.15,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 13.79,
+        "social": 61.12,
+        "economy": 40.95
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2021,
+      "dataType": "observed",
+      "greenfairScore": 69.16,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 70.31,
+        "social": 82.02,
+        "economy": 49.33
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2021,
+      "dataType": "observed",
+      "greenfairScore": 62.57,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 45.03,
+        "social": 79.95,
+        "economy": 66.33
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2021,
+      "dataType": "observed",
+      "greenfairScore": 49.04,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 43.66,
+        "social": 59.64,
+        "economy": 42.79
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2021,
+      "dataType": "observed",
+      "greenfairScore": 46.12,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 27.87,
+        "social": 59.36,
+        "economy": 56.78
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2021,
+      "dataType": "observed",
+      "greenfairScore": 45.44,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 29.93,
+        "social": 58.24,
+        "economy": 52.35
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2021,
+      "dataType": "observed",
+      "greenfairScore": 45.21,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 54.98,
+        "social": 42.38,
+        "economy": 33.54
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2021,
+      "dataType": "observed",
+      "greenfairScore": 44.88,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 25.42,
+        "social": 65.11,
+        "economy": 47.71
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2021,
+      "dataType": "observed",
+      "greenfairScore": 44.2,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 35.65,
+        "social": 47.55,
+        "economy": 53.21
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2021,
+      "dataType": "observed",
+      "greenfairScore": 41.96,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 25.95,
+        "social": 56.52,
+        "economy": 47.19
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2021,
+      "dataType": "observed",
+      "greenfairScore": 37.84,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 13.62,
+        "social": 63.66,
+        "economy": 40.43
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2022,
+      "dataType": "observed",
+      "greenfairScore": 70.77,
+      "level": "Leader durable",
+      "pillarScores": {
+        "environment": 70.26,
+        "social": 87.01,
+        "economy": 48.86
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2022,
+      "dataType": "observed",
+      "greenfairScore": 64.38,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 45.12,
+        "social": 81.33,
+        "economy": 71.46
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2022,
+      "dataType": "observed",
+      "greenfairScore": 48.97,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 43.58,
+        "social": 61.59,
+        "economy": 39.91
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2022,
+      "dataType": "observed",
+      "greenfairScore": 47.03,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 29.96,
+        "social": 63.59,
+        "economy": 51.16
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2022,
+      "dataType": "observed",
+      "greenfairScore": 46.4,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 25.43,
+        "social": 69.79,
+        "economy": 47.2
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2022,
+      "dataType": "observed",
+      "greenfairScore": 46.18,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 27.88,
+        "social": 63.52,
+        "economy": 51.21
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2022,
+      "dataType": "observed",
+      "greenfairScore": 45.18,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 54.96,
+        "social": 45.08,
+        "economy": 29.67
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2022,
+      "dataType": "observed",
+      "greenfairScore": 43.98,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 35.57,
+        "social": 48.24,
+        "economy": 51.47
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2022,
+      "dataType": "observed",
+      "greenfairScore": 43.55,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 25.95,
+        "social": 60.6,
+        "economy": 47.83
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2022,
+      "dataType": "observed",
+      "greenfairScore": 39.11,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 13.62,
+        "social": 65.88,
+        "economy": 42.42
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2023,
+      "dataType": "observed",
+      "greenfairScore": 72.43,
+      "level": "Leader durable",
+      "pillarScores": {
+        "environment": 70.29,
+        "social": 90.13,
+        "economy": 51.09
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2023,
+      "dataType": "observed",
+      "greenfairScore": 63.24,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 45.21,
+        "social": 81.36,
+        "economy": 66.72
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2023,
+      "dataType": "observed",
+      "greenfairScore": 49.02,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 43.58,
+        "social": 62.03,
+        "economy": 39.53
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2023,
+      "dataType": "observed",
+      "greenfairScore": 48.16,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 30.0,
+        "social": 65.67,
+        "economy": 52.71
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2023,
+      "dataType": "observed",
+      "greenfairScore": 47.26,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 27.89,
+        "social": 65.71,
+        "economy": 52.42
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2023,
+      "dataType": "observed",
+      "greenfairScore": 45.75,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 25.43,
+        "social": 71.96,
+        "economy": 41.56
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2023,
+      "dataType": "observed",
+      "greenfairScore": 45.45,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 54.93,
+        "social": 45.27,
+        "economy": 30.53
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2023,
+      "dataType": "observed",
+      "greenfairScore": 44.36,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 35.49,
+        "social": 49.66,
+        "economy": 51.13
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2023,
+      "dataType": "observed",
+      "greenfairScore": 43.54,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 26.39,
+        "social": 61.99,
+        "economy": 45.15
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2023,
+      "dataType": "observed",
+      "greenfairScore": 36.47,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 13.62,
+        "social": 66.78,
+        "economy": 30.57
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2024,
+      "dataType": "extrapolated_scenario",
+      "greenfairScore": 71.23,
+      "level": "Leader durable",
+      "pillarScores": {
+        "environment": 69.29,
+        "social": 87.72,
+        "economy": 51.26
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2024,
+      "dataType": "extrapolated_scenario",
+      "greenfairScore": 64.43,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 44.58,
+        "social": 84.47,
+        "economy": 68.13
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2024,
+      "dataType": "extrapolated_scenario",
+      "greenfairScore": 50.39,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 32.58,
+        "social": 68.52,
+        "economy": 53.49
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2024,
+      "dataType": "extrapolated_scenario",
+      "greenfairScore": 50.37,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 43.13,
+        "social": 65.38,
+        "economy": 40.94
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2024,
+      "dataType": "extrapolated_scenario",
+      "greenfairScore": 49.39,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 53.51,
+        "social": 49.17,
+        "economy": 43.09
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2024,
+      "dataType": "extrapolated_scenario",
+      "greenfairScore": 45.69,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 25.7,
+        "social": 68.99,
+        "economy": 45.07
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2024,
+      "dataType": "extrapolated_scenario",
+      "greenfairScore": 45.53,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 36.22,
+        "social": 52.6,
+        "economy": 50.52
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2024,
+      "dataType": "extrapolated_scenario",
+      "greenfairScore": 44.43,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 24.33,
+        "social": 62.97,
+        "economy": 50.64
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2024,
+      "dataType": "extrapolated_scenario",
+      "greenfairScore": 42.12,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 21.23,
+        "social": 61.73,
+        "economy": 48.09
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2024,
+      "dataType": "extrapolated_scenario",
+      "greenfairScore": 34.89,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 10.88,
+        "social": 60.88,
+        "economy": 36.91
+      }
+    },
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "year": 2025,
+      "dataType": "extrapolated_scenario",
+      "greenfairScore": 71.6,
+      "level": "Leader durable",
+      "pillarScores": {
+        "environment": 69.46,
+        "social": 88.28,
+        "economy": 51.66
+      }
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "year": 2025,
+      "dataType": "extrapolated_scenario",
+      "greenfairScore": 64.75,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 44.47,
+        "social": 85.06,
+        "economy": 68.77
+      }
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "year": 2025,
+      "dataType": "extrapolated_scenario",
+      "greenfairScore": 51.0,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 32.79,
+        "social": 69.83,
+        "economy": 53.75
+      }
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "year": 2025,
+      "dataType": "extrapolated_scenario",
+      "greenfairScore": 50.52,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 42.86,
+        "social": 65.99,
+        "economy": 41.13
+      }
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "year": 2025,
+      "dataType": "extrapolated_scenario",
+      "greenfairScore": 49.76,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 53.33,
+        "social": 50.08,
+        "economy": 43.61
+      }
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "year": 2025,
+      "dataType": "extrapolated_scenario",
+      "greenfairScore": 45.87,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 36.06,
+        "social": 53.47,
+        "economy": 50.94
+      }
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "year": 2025,
+      "dataType": "extrapolated_scenario",
+      "greenfairScore": 45.83,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 25.74,
+        "social": 69.56,
+        "economy": 44.76
+      }
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "year": 2025,
+      "dataType": "extrapolated_scenario",
+      "greenfairScore": 44.75,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 24.25,
+        "social": 63.81,
+        "economy": 50.86
+      }
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "year": 2025,
+      "dataType": "extrapolated_scenario",
+      "greenfairScore": 42.44,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 20.87,
+        "social": 62.78,
+        "economy": 48.45
+      }
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "year": 2025,
+      "dataType": "extrapolated_scenario",
+      "greenfairScore": 34.96,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 10.9,
+        "social": 61.19,
+        "economy": 36.73
+      }
+    }
+  ],
+  "latestScores": [
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "rank": 1,
+      "greenfairScore": 71.6,
+      "level": "Leader durable",
+      "pillarScores": {
+        "environment": 69.46,
+        "social": 88.28,
+        "economy": 51.66
+      },
+      "strongestPillar": "social",
+      "weakestPillar": "economy",
+      "cluster": 1,
+      "forecast2026": {
+        "year": 2026,
+        "score": 71.07,
+        "variation": -0.52,
+        "level": "Leader durable"
+      },
+      "projection2030": {
+        "year": 2030,
+        "score": 67.83,
+        "variation": -3.77,
+        "level": "Potentiel solide"
+      },
+      "recommendations": [
+        "Concentrer le prochain cycle d'action sur le pilier economie, actuellement le plus fragile.",
+        "Prioriser stabilite macroeconomique, investissement productif, exportations et croissance durable.",
+        "Stabiliser la trajectoire du score avant 2030: variation scenario -3.77 points par rapport a 2025.",
+        "Mettre en place un suivi annuel des 15 indicateurs plutot qu'une lecture purement ponctuelle du score global."
+      ]
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "rank": 2,
+      "greenfairScore": 64.75,
+      "level": "Potentiel solide",
+      "pillarScores": {
+        "environment": 44.47,
+        "social": 85.06,
+        "economy": 68.77
+      },
+      "strongestPillar": "social",
+      "weakestPillar": "environment",
+      "cluster": 1,
+      "forecast2026": {
+        "year": 2026,
+        "score": 64.33,
+        "variation": -0.42,
+        "level": "Potentiel solide"
+      },
+      "projection2030": {
+        "year": 2030,
+        "score": 64.13,
+        "variation": -0.62,
+        "level": "Potentiel solide"
+      },
+      "recommendations": [
+        "Concentrer le prochain cycle d'action sur le pilier environnement, actuellement le plus fragile.",
+        "Prioriser qualite de l'air, renouvelables, CO2 et protection des espaces naturels.",
+        "Stabiliser la trajectoire du score avant 2030: variation scenario -0.62 points par rapport a 2025.",
+        "Mettre en place un suivi annuel des 15 indicateurs plutot qu'une lecture purement ponctuelle du score global."
+      ]
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "rank": 3,
+      "greenfairScore": 51.0,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 32.79,
+        "social": 69.83,
+        "economy": 53.75
+      },
+      "strongestPillar": "social",
+      "weakestPillar": "environment",
+      "cluster": 0,
+      "forecast2026": {
+        "year": 2026,
+        "score": 51.0,
+        "variation": 0.0,
+        "level": "Transition fragile"
+      },
+      "projection2030": {
+        "year": 2030,
+        "score": 52.27,
+        "variation": 1.27,
+        "level": "Transition fragile"
+      },
+      "recommendations": [
+        "Concentrer le prochain cycle d'action sur le pilier environnement, actuellement le plus fragile.",
+        "Prioriser qualite de l'air, renouvelables, CO2 et protection des espaces naturels.",
+        "Stabiliser la trajectoire du score avant 2030: variation scenario +1.27 points par rapport a 2025.",
+        "Mettre en place un suivi annuel des 15 indicateurs plutot qu'une lecture purement ponctuelle du score global."
+      ]
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "rank": 4,
+      "greenfairScore": 50.52,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 42.86,
+        "social": 65.99,
+        "economy": 41.13
+      },
+      "strongestPillar": "social",
+      "weakestPillar": "economy",
+      "cluster": 0,
+      "forecast2026": {
+        "year": 2026,
+        "score": 51.04,
+        "variation": 0.52,
+        "level": "Transition fragile"
+      },
+      "projection2030": {
+        "year": 2030,
+        "score": 48.63,
+        "variation": -1.89,
+        "level": "Transition fragile"
+      },
+      "recommendations": [
+        "Concentrer le prochain cycle d'action sur le pilier economie, actuellement le plus fragile.",
+        "Prioriser stabilite macroeconomique, investissement productif, exportations et croissance durable.",
+        "Stabiliser la trajectoire du score avant 2030: variation scenario -1.89 points par rapport a 2025.",
+        "Mettre en place un suivi annuel des 15 indicateurs plutot qu'une lecture purement ponctuelle du score global."
+      ]
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "rank": 5,
+      "greenfairScore": 49.76,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 53.33,
+        "social": 50.08,
+        "economy": 43.61
+      },
+      "strongestPillar": "environment",
+      "weakestPillar": "economy",
+      "cluster": 0,
+      "forecast2026": {
+        "year": 2026,
+        "score": 49.84,
+        "variation": 0.08,
+        "level": "Transition fragile"
+      },
+      "projection2030": {
+        "year": 2030,
+        "score": 48.0,
+        "variation": -1.76,
+        "level": "Transition fragile"
+      },
+      "recommendations": [
+        "Concentrer le prochain cycle d'action sur le pilier economie, actuellement le plus fragile.",
+        "Prioriser stabilite macroeconomique, investissement productif, exportations et croissance durable.",
+        "Stabiliser la trajectoire du score avant 2030: variation scenario -1.76 points par rapport a 2025.",
+        "Mettre en place un suivi annuel des 15 indicateurs plutot qu'une lecture purement ponctuelle du score global."
+      ]
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "rank": 6,
+      "greenfairScore": 45.87,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 36.06,
+        "social": 53.47,
+        "economy": 50.94
+      },
+      "strongestPillar": "social",
+      "weakestPillar": "environment",
+      "cluster": 0,
+      "forecast2026": {
+        "year": 2026,
+        "score": 46.04,
+        "variation": 0.17,
+        "level": "Transition fragile"
+      },
+      "projection2030": {
+        "year": 2030,
+        "score": 44.83,
+        "variation": -1.04,
+        "level": "Transition fragile"
+      },
+      "recommendations": [
+        "Concentrer le prochain cycle d'action sur le pilier environnement, actuellement le plus fragile.",
+        "Prioriser qualite de l'air, renouvelables, CO2 et protection des espaces naturels.",
+        "Stabiliser la trajectoire du score avant 2030: variation scenario -1.04 points par rapport a 2025.",
+        "Mettre en place un suivi annuel des 15 indicateurs plutot qu'une lecture purement ponctuelle du score global."
+      ]
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "rank": 7,
+      "greenfairScore": 45.83,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 25.74,
+        "social": 69.56,
+        "economy": 44.76
+      },
+      "strongestPillar": "social",
+      "weakestPillar": "environment",
+      "cluster": 0,
+      "forecast2026": {
+        "year": 2026,
+        "score": 46.58,
+        "variation": 0.75,
+        "level": "Transition fragile"
+      },
+      "projection2030": {
+        "year": 2030,
+        "score": 50.76,
+        "variation": 4.93,
+        "level": "Transition fragile"
+      },
+      "recommendations": [
+        "Concentrer le prochain cycle d'action sur le pilier environnement, actuellement le plus fragile.",
+        "Prioriser qualite de l'air, renouvelables, CO2 et protection des espaces naturels.",
+        "Stabiliser la trajectoire du score avant 2030: variation scenario +4.93 points par rapport a 2025.",
+        "Mettre en place un suivi annuel des 15 indicateurs plutot qu'une lecture purement ponctuelle du score global."
+      ]
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "rank": 8,
+      "greenfairScore": 44.75,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 24.25,
+        "social": 63.81,
+        "economy": 50.86
+      },
+      "strongestPillar": "social",
+      "weakestPillar": "environment",
+      "cluster": 0,
+      "forecast2026": {
+        "year": 2026,
+        "score": 45.37,
+        "variation": 0.62,
+        "level": "Transition fragile"
+      },
+      "projection2030": {
+        "year": 2030,
+        "score": 44.75,
+        "variation": 0.0,
+        "level": "Transition fragile"
+      },
+      "recommendations": [
+        "Concentrer le prochain cycle d'action sur le pilier environnement, actuellement le plus fragile.",
+        "Prioriser qualite de l'air, renouvelables, CO2 et protection des espaces naturels.",
+        "Stabiliser la trajectoire du score avant 2030: variation scenario +0.00 points par rapport a 2025.",
+        "Mettre en place un suivi annuel des 15 indicateurs plutot qu'une lecture purement ponctuelle du score global."
+      ]
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "rank": 9,
+      "greenfairScore": 42.44,
+      "level": "Transition fragile",
+      "pillarScores": {
+        "environment": 20.87,
+        "social": 62.78,
+        "economy": 48.45
+      },
+      "strongestPillar": "social",
+      "weakestPillar": "environment",
+      "cluster": 0,
+      "forecast2026": {
+        "year": 2026,
+        "score": 43.36,
+        "variation": 0.92,
+        "level": "Transition fragile"
+      },
+      "projection2030": {
+        "year": 2030,
+        "score": 43.88,
+        "variation": 1.44,
+        "level": "Transition fragile"
+      },
+      "recommendations": [
+        "Concentrer le prochain cycle d'action sur le pilier environnement, actuellement le plus fragile.",
+        "Prioriser qualite de l'air, renouvelables, CO2 et protection des espaces naturels.",
+        "Stabiliser la trajectoire du score avant 2030: variation scenario +1.44 points par rapport a 2025.",
+        "Mettre en place un suivi annuel des 15 indicateurs plutot qu'une lecture purement ponctuelle du score global."
+      ]
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "rank": 10,
+      "greenfairScore": 34.96,
+      "level": "Priorite critique",
+      "pillarScores": {
+        "environment": 10.9,
+        "social": 61.19,
+        "economy": 36.73
+      },
+      "strongestPillar": "social",
+      "weakestPillar": "environment",
+      "cluster": 0,
+      "forecast2026": {
+        "year": 2026,
+        "score": 35.21,
+        "variation": 0.25,
+        "level": "Priorite critique"
+      },
+      "projection2030": {
+        "year": 2030,
+        "score": 35.61,
+        "variation": 0.65,
+        "level": "Priorite critique"
+      },
+      "recommendations": [
+        "Concentrer le prochain cycle d'action sur le pilier environnement, actuellement le plus fragile.",
+        "Prioriser qualite de l'air, renouvelables, CO2 et protection des espaces naturels.",
+        "Stabiliser la trajectoire du score avant 2030: variation scenario +0.65 points par rapport a 2025.",
+        "Mettre en place un suivi annuel des 15 indicateurs plutot qu'une lecture purement ponctuelle du score global."
+      ]
+    }
+  ],
+  "rankings": [
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "rank": 1,
+      "greenfairScore": 71.6,
+      "level": "Leader durable"
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "rank": 2,
+      "greenfairScore": 64.75,
+      "level": "Potentiel solide"
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "rank": 3,
+      "greenfairScore": 51.0,
+      "level": "Transition fragile"
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "rank": 4,
+      "greenfairScore": 50.52,
+      "level": "Transition fragile"
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "rank": 5,
+      "greenfairScore": 49.76,
+      "level": "Transition fragile"
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "rank": 6,
+      "greenfairScore": 45.87,
+      "level": "Transition fragile"
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "rank": 7,
+      "greenfairScore": 45.83,
+      "level": "Transition fragile"
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "rank": 8,
+      "greenfairScore": 44.75,
+      "level": "Transition fragile"
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "rank": 9,
+      "greenfairScore": 42.44,
+      "level": "Transition fragile"
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "rank": 10,
+      "greenfairScore": 34.96,
+      "level": "Priorite critique"
+    }
+  ],
+  "pillarScores": [
+    {
+      "countryCode": "BRA",
+      "country": "Brazil",
+      "environment": 69.46,
+      "social": 88.28,
+      "economy": 51.66,
+      "greenfairScore": 71.6
+    },
+    {
+      "countryCode": "VNM",
+      "country": "Viet Nam",
+      "environment": 44.47,
+      "social": 85.06,
+      "economy": 68.77,
+      "greenfairScore": 64.75
+    },
+    {
+      "countryCode": "MAR",
+      "country": "Morocco",
+      "environment": 32.79,
+      "social": 69.83,
+      "economy": 53.75,
+      "greenfairScore": 51.0
+    },
+    {
+      "countryCode": "KEN",
+      "country": "Kenya",
+      "environment": 42.86,
+      "social": 65.99,
+      "economy": 41.13,
+      "greenfairScore": 50.52
+    },
+    {
+      "countryCode": "ETH",
+      "country": "Ethiopia",
+      "environment": 53.33,
+      "social": 50.08,
+      "economy": 43.61,
+      "greenfairScore": 49.76
+    },
+    {
+      "countryCode": "SEN",
+      "country": "Senegal",
+      "environment": 36.06,
+      "social": 53.47,
+      "economy": 50.94,
+      "greenfairScore": 45.87
+    },
+    {
+      "countryCode": "TUN",
+      "country": "Tunisia",
+      "environment": 25.74,
+      "social": 69.56,
+      "economy": 44.76,
+      "greenfairScore": 45.83
+    },
+    {
+      "countryCode": "IND",
+      "country": "India",
+      "environment": 24.25,
+      "social": 63.81,
+      "economy": 50.86,
+      "greenfairScore": 44.75
+    },
+    {
+      "countryCode": "BGD",
+      "country": "Bangladesh",
+      "environment": 20.87,
+      "social": 62.78,
+      "economy": 48.45,
+      "greenfairScore": 42.44
+    },
+    {
+      "countryCode": "EGY",
+      "country": "Egypt, Arab Rep.",
+      "environment": 10.9,
+      "social": 61.19,
+      "economy": 36.73,
+      "greenfairScore": 34.96
+    }
+  ],
+  "clusterAssignments": [
+    {
+      "country": "Bangladesh",
+      "countryCode": "BGD",
+      "cluster": 0,
+      "clusterLabel": "Groupe de transition",
+      "pc1": -1.271,
+      "pc2": 0.234
+    },
+    {
+      "country": "Brazil",
+      "countryCode": "BRA",
+      "cluster": 1,
+      "clusterLabel": "Groupe emergent plus robuste",
+      "pc1": 3.162,
+      "pc2": -1.065
+    },
+    {
+      "country": "Egypt, Arab Rep.",
+      "countryCode": "EGY",
+      "cluster": 0,
+      "clusterLabel": "Groupe de transition",
+      "pc1": -1.863,
+      "pc2": 0.653
+    },
+    {
+      "country": "Ethiopia",
+      "countryCode": "ETH",
+      "cluster": 0,
+      "clusterLabel": "Groupe de transition",
+      "pc1": -0.878,
+      "pc2": -2.078
+    },
+    {
+      "country": "India",
+      "countryCode": "IND",
+      "cluster": 0,
+      "clusterLabel": "Groupe de transition",
+      "pc1": -0.722,
+      "pc2": 0.728
+    },
+    {
+      "country": "Kenya",
+      "countryCode": "KEN",
+      "cluster": 0,
+      "clusterLabel": "Groupe de transition",
+      "pc1": 0.053,
+      "pc2": -1.141
+    },
+    {
+      "country": "Morocco",
+      "countryCode": "MAR",
+      "cluster": 0,
+      "clusterLabel": "Groupe de transition",
+      "pc1": -0.332,
+      "pc2": 0.736
+    },
+    {
+      "country": "Senegal",
+      "countryCode": "SEN",
+      "cluster": 0,
+      "clusterLabel": "Groupe de transition",
+      "pc1": -0.923,
+      "pc2": -0.324
+    },
+    {
+      "country": "Tunisia",
+      "countryCode": "TUN",
+      "cluster": 0,
+      "clusterLabel": "Groupe de transition",
+      "pc1": -0.063,
+      "pc2": 0.972
+    },
+    {
+      "country": "Viet Nam",
+      "countryCode": "VNM",
+      "cluster": 1,
+      "clusterLabel": "Groupe emergent plus robuste",
+      "pc1": 2.837,
+      "pc2": 1.286
+    }
+  ],
+  "forecast2026": [
+    {
+      "country": "Brazil",
+      "countryCode": "BRA",
+      "year": 2026,
+      "referenceYear": 2025,
+      "referenceScore": 71.6,
+      "score": 71.07,
+      "variation": -0.52,
+      "level": "Leader durable"
+    },
+    {
+      "country": "Viet Nam",
+      "countryCode": "VNM",
+      "year": 2026,
+      "referenceYear": 2025,
+      "referenceScore": 64.75,
+      "score": 64.33,
+      "variation": -0.42,
+      "level": "Potentiel solide"
+    },
+    {
+      "country": "Kenya",
+      "countryCode": "KEN",
+      "year": 2026,
+      "referenceYear": 2025,
+      "referenceScore": 50.52,
+      "score": 51.04,
+      "variation": 0.52,
+      "level": "Transition fragile"
+    },
+    {
+      "country": "Morocco",
+      "countryCode": "MAR",
+      "year": 2026,
+      "referenceYear": 2025,
+      "referenceScore": 51.0,
+      "score": 51.0,
+      "variation": 0.0,
+      "level": "Transition fragile"
+    },
+    {
+      "country": "Ethiopia",
+      "countryCode": "ETH",
+      "year": 2026,
+      "referenceYear": 2025,
+      "referenceScore": 49.76,
+      "score": 49.84,
+      "variation": 0.08,
+      "level": "Transition fragile"
+    },
+    {
+      "country": "Tunisia",
+      "countryCode": "TUN",
+      "year": 2026,
+      "referenceYear": 2025,
+      "referenceScore": 45.83,
+      "score": 46.58,
+      "variation": 0.75,
+      "level": "Transition fragile"
+    },
+    {
+      "country": "Senegal",
+      "countryCode": "SEN",
+      "year": 2026,
+      "referenceYear": 2025,
+      "referenceScore": 45.87,
+      "score": 46.04,
+      "variation": 0.17,
+      "level": "Transition fragile"
+    },
+    {
+      "country": "India",
+      "countryCode": "IND",
+      "year": 2026,
+      "referenceYear": 2025,
+      "referenceScore": 44.75,
+      "score": 45.37,
+      "variation": 0.62,
+      "level": "Transition fragile"
+    },
+    {
+      "country": "Bangladesh",
+      "countryCode": "BGD",
+      "year": 2026,
+      "referenceYear": 2025,
+      "referenceScore": 42.44,
+      "score": 43.36,
+      "variation": 0.92,
+      "level": "Transition fragile"
+    },
+    {
+      "country": "Egypt, Arab Rep.",
+      "countryCode": "EGY",
+      "year": 2026,
+      "referenceYear": 2025,
+      "referenceScore": 34.96,
+      "score": 35.21,
+      "variation": 0.25,
+      "level": "Priorite critique"
+    }
+  ],
+  "projection2030": [
+    {
+      "country": "Brazil",
+      "countryCode": "BRA",
+      "year": 2030,
+      "referenceYear": 2025,
+      "referenceScore": 71.6,
+      "score": 67.83,
+      "variation": -3.77,
+      "level": "Potentiel solide",
+      "dataType": "projection_scenario"
+    },
+    {
+      "country": "Viet Nam",
+      "countryCode": "VNM",
+      "year": 2030,
+      "referenceYear": 2025,
+      "referenceScore": 64.75,
+      "score": 64.13,
+      "variation": -0.62,
+      "level": "Potentiel solide",
+      "dataType": "projection_scenario"
+    },
+    {
+      "country": "Morocco",
+      "countryCode": "MAR",
+      "year": 2030,
+      "referenceYear": 2025,
+      "referenceScore": 51.0,
+      "score": 52.27,
+      "variation": 1.27,
+      "level": "Transition fragile",
+      "dataType": "projection_scenario"
+    },
+    {
+      "country": "Tunisia",
+      "countryCode": "TUN",
+      "year": 2030,
+      "referenceYear": 2025,
+      "referenceScore": 45.83,
+      "score": 50.76,
+      "variation": 4.93,
+      "level": "Transition fragile",
+      "dataType": "projection_scenario"
+    },
+    {
+      "country": "Kenya",
+      "countryCode": "KEN",
+      "year": 2030,
+      "referenceYear": 2025,
+      "referenceScore": 50.52,
+      "score": 48.63,
+      "variation": -1.89,
+      "level": "Transition fragile",
+      "dataType": "projection_scenario"
+    },
+    {
+      "country": "Ethiopia",
+      "countryCode": "ETH",
+      "year": 2030,
+      "referenceYear": 2025,
+      "referenceScore": 49.76,
+      "score": 48.0,
+      "variation": -1.76,
+      "level": "Transition fragile",
+      "dataType": "projection_scenario"
+    },
+    {
+      "country": "Senegal",
+      "countryCode": "SEN",
+      "year": 2030,
+      "referenceYear": 2025,
+      "referenceScore": 45.87,
+      "score": 44.83,
+      "variation": -1.04,
+      "level": "Transition fragile",
+      "dataType": "projection_scenario"
+    },
+    {
+      "country": "India",
+      "countryCode": "IND",
+      "year": 2030,
+      "referenceYear": 2025,
+      "referenceScore": 44.75,
+      "score": 44.75,
+      "variation": 0.0,
+      "level": "Transition fragile",
+      "dataType": "projection_scenario"
+    },
+    {
+      "country": "Bangladesh",
+      "countryCode": "BGD",
+      "year": 2030,
+      "referenceYear": 2025,
+      "referenceScore": 42.44,
+      "score": 43.88,
+      "variation": 1.44,
+      "level": "Transition fragile",
+      "dataType": "projection_scenario"
+    },
+    {
+      "country": "Egypt, Arab Rep.",
+      "countryCode": "EGY",
+      "year": 2030,
+      "referenceYear": 2025,
+      "referenceScore": 34.96,
+      "score": 35.61,
+      "variation": 0.65,
+      "level": "Priorite critique",
+      "dataType": "projection_scenario"
+    }
+  ],
+  "modelComparison": [
+    {
+      "id": "baseline_naif",
+      "label": "Baseline naive",
+      "purpose": "Reference simple: le score de l'annee suivante est suppose identique au score courant.",
+      "notes": "Repere minimal pour juger si les modeles ajoutent de la valeur.",
+      "mae": 1.454,
+      "rmse": 1.914,
+      "r2": 0.96
+    },
+    {
+      "id": "ridge_temporelle",
+      "label": "Ridge temporelle",
+      "purpose": "Scenario interpretable base sur la dynamique temporelle et les ecarts de piliers.",
+      "notes": "Modele principal retenu pour le scenario 2026.",
+      "mae": 1.436,
+      "rmse": 1.825,
+      "r2": 0.963
+    },
+    {
+      "id": "random_forest",
+      "label": "Random Forest",
+      "purpose": "Scenario plus souple pour capter des non-linearites.",
+      "notes": "Utilise pour enrichir la projection 2030, sans pretention de prevision officielle.",
+      "mae": 1.549,
+      "rmse": 2.033,
+      "r2": 0.954
+    },
+    {
+      "id": "regression_directe",
+      "label": "Regression lineaire directe",
+      "purpose": "Validation de la formule du score plutot que modele predictif realiste.",
+      "notes": "A interpreter comme verification de coherence mathematique.",
+      "mae": 0.0,
+      "rmse": 0.0,
+      "r2": 1.0
+    }
+  ],
+  "recommendationsByCountry": {
+    "BRA": [
+      "Concentrer le prochain cycle d'action sur le pilier economie, actuellement le plus fragile.",
+      "Prioriser stabilite macroeconomique, investissement productif, exportations et croissance durable.",
+      "Stabiliser la trajectoire du score avant 2030: variation scenario -3.77 points par rapport a 2025.",
+      "Mettre en place un suivi annuel des 15 indicateurs plutot qu'une lecture purement ponctuelle du score global."
+    ],
+    "VNM": [
+      "Concentrer le prochain cycle d'action sur le pilier environnement, actuellement le plus fragile.",
+      "Prioriser qualite de l'air, renouvelables, CO2 et protection des espaces naturels.",
+      "Stabiliser la trajectoire du score avant 2030: variation scenario -0.62 points par rapport a 2025.",
+      "Mettre en place un suivi annuel des 15 indicateurs plutot qu'une lecture purement ponctuelle du score global."
+    ],
+    "MAR": [
+      "Concentrer le prochain cycle d'action sur le pilier environnement, actuellement le plus fragile.",
+      "Prioriser qualite de l'air, renouvelables, CO2 et protection des espaces naturels.",
+      "Stabiliser la trajectoire du score avant 2030: variation scenario +1.27 points par rapport a 2025.",
+      "Mettre en place un suivi annuel des 15 indicateurs plutot qu'une lecture purement ponctuelle du score global."
+    ],
+    "KEN": [
+      "Concentrer le prochain cycle d'action sur le pilier economie, actuellement le plus fragile.",
+      "Prioriser stabilite macroeconomique, investissement productif, exportations et croissance durable.",
+      "Stabiliser la trajectoire du score avant 2030: variation scenario -1.89 points par rapport a 2025.",
+      "Mettre en place un suivi annuel des 15 indicateurs plutot qu'une lecture purement ponctuelle du score global."
+    ],
+    "ETH": [
+      "Concentrer le prochain cycle d'action sur le pilier economie, actuellement le plus fragile.",
+      "Prioriser stabilite macroeconomique, investissement productif, exportations et croissance durable.",
+      "Stabiliser la trajectoire du score avant 2030: variation scenario -1.76 points par rapport a 2025.",
+      "Mettre en place un suivi annuel des 15 indicateurs plutot qu'une lecture purement ponctuelle du score global."
+    ],
+    "SEN": [
+      "Concentrer le prochain cycle d'action sur le pilier environnement, actuellement le plus fragile.",
+      "Prioriser qualite de l'air, renouvelables, CO2 et protection des espaces naturels.",
+      "Stabiliser la trajectoire du score avant 2030: variation scenario -1.04 points par rapport a 2025.",
+      "Mettre en place un suivi annuel des 15 indicateurs plutot qu'une lecture purement ponctuelle du score global."
+    ],
+    "TUN": [
+      "Concentrer le prochain cycle d'action sur le pilier environnement, actuellement le plus fragile.",
+      "Prioriser qualite de l'air, renouvelables, CO2 et protection des espaces naturels.",
+      "Stabiliser la trajectoire du score avant 2030: variation scenario +4.93 points par rapport a 2025.",
+      "Mettre en place un suivi annuel des 15 indicateurs plutot qu'une lecture purement ponctuelle du score global."
+    ],
+    "IND": [
+      "Concentrer le prochain cycle d'action sur le pilier environnement, actuellement le plus fragile.",
+      "Prioriser qualite de l'air, renouvelables, CO2 et protection des espaces naturels.",
+      "Stabiliser la trajectoire du score avant 2030: variation scenario +0.00 points par rapport a 2025.",
+      "Mettre en place un suivi annuel des 15 indicateurs plutot qu'une lecture purement ponctuelle du score global."
+    ],
+    "BGD": [
+      "Concentrer le prochain cycle d'action sur le pilier environnement, actuellement le plus fragile.",
+      "Prioriser qualite de l'air, renouvelables, CO2 et protection des espaces naturels.",
+      "Stabiliser la trajectoire du score avant 2030: variation scenario +1.44 points par rapport a 2025.",
+      "Mettre en place un suivi annuel des 15 indicateurs plutot qu'une lecture purement ponctuelle du score global."
+    ],
+    "EGY": [
+      "Concentrer le prochain cycle d'action sur le pilier environnement, actuellement le plus fragile.",
+      "Prioriser qualite de l'air, renouvelables, CO2 et protection des espaces naturels.",
+      "Stabiliser la trajectoire du score avant 2030: variation scenario +0.65 points par rapport a 2025.",
+      "Mettre en place un suivi annuel des 15 indicateurs plutot qu'une lecture purement ponctuelle du score global."
+    ]
+  },
+  "overview": {
+    "bestCurrentCountry": "Brazil",
+    "bestCurrentScore": 71.6,
+    "tunisiaRank": 7,
+    "averageGreenfairScore": 50.15,
+    "strongestGlobalPillar": "Social"
+  },
+  "countryGroups": {
+    "tunisiaComparison": [
+      "Tunisia",
+      "Morocco",
+      "Egypt, Arab Rep.",
+      "Senegal",
+      "Kenya"
+    ],
+    "cluster0": [
+      "Bangladesh",
+      "Egypt, Arab Rep.",
+      "Ethiopia",
+      "India",
+      "Kenya",
+      "Morocco",
+      "Senegal",
+      "Tunisia"
+    ],
+    "cluster1": [
+      "Brazil",
+      "Viet Nam"
+    ]
+  },
+  "dataWarnings": [
+    "Les annees 2024-2025 sont des scenarios extrapoles, non des observations officielles.",
+    "Les projections 2030 sont des scenarios modeles, non des previsions officielles.",
+    "La disponibilite World Bank varie selon l'indicateur et le pays; certaines series ont ete completees par interpolation ou extrapolation.",
+    "Les clusters affiches suivent la structure attendue du notebook pour garantir une restitution stable de demonstration."
+  ],
+  "methodology": {
+    "description": "GreenFair Score combine 15 indicateurs World Bank en 3 piliers avec normalisation Min-Max et inversion des indicateurs negatifs.",
+    "thresholds": [
+      {
+        "label": "Leader durable",
+        "minScore": 70
+      },
+      {
+        "label": "Potentiel solide",
+        "minScore": 55
+      },
+      {
+        "label": "Transition fragile",
+        "minScore": 40
+      },
+      {
+        "label": "Priorite critique",
+        "minScore": 0
+      }
+    ],
+    "limits": [
+      "2024-2025 sont extrapoles a partir des tendances historiques.",
+      "2030 est un scenario de projection, pas une prevision officielle.",
+      "La regression lineaire directe sert de validation de formule et non de moteur predictif autonome."
+    ]
+  },
+  "rawSummary": {
+    "observedRows": 3900,
+    "runtimeRows": 4200,
+    "normalizedRows": 4200,
+    "notebookSanitized": true
+  }
+}
